@@ -1,5 +1,13 @@
 <table class="table table-reposive">
-	<form action="<?= base_url() ?>admin/pengangkatancpns_tambah" method="POST" enctype="multipart/form-data">
+	<?php 
+		if($aksi == 'edit'){
+			echo '<form action="'. base_url() .'admin/pengangkatancpns_edit/'.$id_angkat_cpns.'" method="POST" enctype="multipart/form-data">';
+		}else{
+			echo '<form action="'. base_url() .'admin/pengangkatancpns_tambah" method="POST" enctype="multipart/form-data">';
+
+		}
+	?>
+	
 	<tr><th>Tanggal Persetujuan BAKN</th><td><input type="date" name="tgl_persetujuan_bakn" class="form-control" value="<?= $tgl_persetujuan_bakn ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Bukti Pengangkatan</th><td>
@@ -10,7 +18,7 @@
 
       }
 	?>
-<input type="file" name="gambar" value="<?= $foto ?>" class="form-control" required="">
+<input type="file" name="gambar" value="<?= $foto ?>" class="form-control">
 </td><th class="text-danger">***</th></tr>
 	<tr><th>Nomor Nota Persetujuan BAKN</th><td><input type="text" name="no_nota_persetujuan_bakn" class="form-control" value="<?= $no_nota_persetujuan_bakn ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Pejabat yang menetapkan</th><td><select class="form-control" name="pejabat_ygmenetapkan" required="">
