@@ -1,5 +1,5 @@
 <table class="table table-reposive">
-	<form action="" method="POST">
+	<form action="<?= base_url() ?>admin/pengangkatanpns_tambah" method="POST" enctype="multipart/form-data">
 	<tr><th>Tanggal</th><td><input type="date" name="tgl_sk" class="form-control" value="<?= $tgl_sk ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Bukti Pengangkatan</th><td>

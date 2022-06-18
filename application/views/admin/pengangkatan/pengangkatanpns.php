@@ -28,7 +28,7 @@
                 <tr>
 					<td><?= $no ?></td>
 					<td><?= $admin['nama'] ?></td>
-					<td><?= $admin['bukti'] ?></td>
+					<td><a href="<?= base_url() ?>template/data/<?= $admin['bukti'] ?>" target="_blank" rel="noopener noreferrer"><img src="<?= base_url() ?>template/data/<?= $admin['bukti'] ?>" alt="" width="100"> </a> </td>
 					<td><?= $admin['no_sk'] ?></td> 
 					<td><?= $admin['pejabat_ygmenetapkan'] ?></td>
         			<td>Rp.<?= number_format($admin['gapok_sk']) ?></td>

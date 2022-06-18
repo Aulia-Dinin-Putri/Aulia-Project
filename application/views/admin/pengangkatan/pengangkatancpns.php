@@ -28,7 +28,7 @@
                 <tr>
                 <td><?= $no ?></td>
 				<td><?= $admin['nama'] ?></td>
-				<td><?= $admin['foto'] ?></td>
+				<td><a href="<?= base_url() ?>template/data/<?= $admin['foto'] ?>" target="_blank" rel="noopener noreferrer"> <img src="<?= base_url() ?>template/data/<?= $admin['foto'] ?>" alt="" width="100"></a> </td>
 				<td><?= $admin['no_sk_cpns'] ?></td>
 				<td><?= $admin['tgl_sk_cpns'] ?></td>
 				<td>Rp.<?= number_format($admin['gaji']) ?></td>

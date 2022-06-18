@@ -1,5 +1,5 @@
 <table class="table table-reposive">
-	<form action="" method="POST">
+	<form action="<?= base_url() ?>admin/pengangkatancpns_tambah" method="POST" enctype="multipart/form-data">
 	<tr><th>Tanggal Persetujuan BAKN</th><td><input type="date" name="tgl_persetujuan_bakn" class="form-control" value="<?= $tgl_persetujuan_bakn ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Bukti Pengangkatan</th><td>
@@ -81,7 +81,7 @@
 							  <option value="November">November</option>
 							  <option value="Desember">Desember</option>
 							  </select></td><th class="text-danger">***</th></tr>
-    <tr><td></td><td><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> &nbsp;&nbsp; <a href="http://localhost/simpeg_pupr/admin/pengangkatancpns_read" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></td></tr>
+    <tr><td></td><td><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> &nbsp;&nbsp; <a href="<?= base_url() ?>admin/pengangkatancpns_read" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></td></tr>
 	</form>	 
 </table>
  
