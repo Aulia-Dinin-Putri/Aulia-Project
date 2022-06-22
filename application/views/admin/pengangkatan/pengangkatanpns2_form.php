@@ -10,7 +10,7 @@
 
       }
 	?>
-<input type="file" name="gambar" value="<?= $bukti ?>" class="form-control" required="">
+<input type="file" name="gambar" value="<?= $bukti ?>" class="form-control" required="" accept=".pdf">
 </td><th class="text-danger">***</th></tr>
 	<tr><th>Nomor Surat Keputusan</th><td><input type="text" name="no_sk" class="form-control" value="<?= $no_sk ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Pejabat yang menetapkan</th><td><select class="form-control" name="pejabat_ygmenetapkan" required="">

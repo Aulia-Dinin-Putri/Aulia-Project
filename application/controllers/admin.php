@@ -589,8 +589,8 @@ public function pengangkatancpns()
     ); 
     if(isset($_POST['kirim'])){
         $config['upload_path'] = './template/data/'; 
-        $config['allowed_types'] = 'bmp|jpg|png';  
-        $config['file_name'] = 'foto_'.time();  
+        $config['allowed_types'] = 'bmp|jpg|png|pdf';  
+        $config['file_name'] = 'file_'.time();  
         $this->load->library('upload', $config);
         $this->upload->initialize($config);
         if($this->upload->do_upload('gambar')){
@@ -696,8 +696,8 @@ public function pengangkatancpns()
         redirect(base_url('admin/pengangkatancpns_read'));
       }else{
           $config['upload_path'] = './template/data/'; 
-          $config['allowed_types'] = 'bmp|jpg|png';  
-          $config['file_name'] = 'foto_'.time();  
+          $config['allowed_types'] = 'bmp|jpg|png|pdf';  
+          $config['file_name'] = 'file_'.time();  
           $this->load->library('upload', $config);
           $this->upload->initialize($config);
           if($this->upload->do_upload('gambar')){
@@ -825,8 +825,8 @@ public function pengangkatancpns()
               'sumpah_janji_pns'=> ""); 
     if(isset($_POST['kirim'])){
       $config['upload_path'] = './template/data/'; 
-      $config['allowed_types'] = 'bmp|jpg|png';  
-      $config['file_name'] = 'bukti_'.time();  
+      $config['allowed_types'] = 'bmp|jpg|png|pdf';  
+      $config['file_name'] = 'file_'.time();  
       $this->load->library('upload', $config);
       $this->upload->initialize($config);
       if($this->upload->do_upload('gambar')){
@@ -891,8 +891,8 @@ public function pengangkatancpns()
     ); 
     if(isset($_POST['kirim'])){
       $config['upload_path'] = './template/data/'; 
-      $config['allowed_types'] = 'bmp|jpg|png';  
-      $config['file_name'] = 'foto_'.time();  
+      $config['allowed_types'] = 'bmp|jpg|png|pdf';  
+      $config['file_name'] = 'file_'.time();  
       $this->load->library('upload', $config);
       $this->upload->initialize($config);
       if($this->upload->do_upload('gambar')){

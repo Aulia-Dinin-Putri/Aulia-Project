@@ -11,7 +11,7 @@
                 <tr>
 					<th>No</th>
 					<th>Nama Pegawai</th>
-					<th>Bukti Pengangkatan</th>
+					<th width="15%">Bukti Pengangkatan</th>
 					<th>Nomor SK</th>
 					<th>Pejabat yang menetapkan</th>
 					<th>Gapok</th>
@@ -28,7 +28,12 @@
                 <tr>
 					<td><?= $no ?></td>
 					<td><?= $admin['nama'] ?></td>
-					<td><a href="<?= base_url() ?>template/data/<?= $admin['bukti'] ?>" target="_blank" rel="noopener noreferrer"><img src="<?= base_url() ?>template/data/<?= $admin['bukti'] ?>" alt="" width="100"> </a> </td>
+					<td>
+						<?php if($admin['bukti'] != ""){ ?>
+							<a href="<?= base_url('template/data/'.$admin['bukti']) ?>" class="btn btn-primary" download>Download <i class="fa fa-download"></i> </a> <a href="javascript:void(0)" target="_blank" class="btn btn-warning" onclick="window.open(`<?= base_url('template/data/'.$admin['bukti']) ?>`)">Preview <i class="fa fa-link"></i> </a>
+
+						<?php } ?>	
+					</td>
 					<td><?= $admin['no_sk'] ?></td> 
 					<td><?= $admin['pejabat_ygmenetapkan'] ?></td>
         			<td>Rp.<?= number_format($admin['gapok_sk']) ?></td>

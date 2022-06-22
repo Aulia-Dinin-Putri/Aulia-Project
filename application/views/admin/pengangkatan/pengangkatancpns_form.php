@@ -18,7 +18,7 @@
 
       }
 	?>
-<input type="file" name="gambar" value="<?= $foto ?>" class="form-control">
+<input type="file" name="gambar" value="<?= $foto ?>" class="form-control" accept=".pdf">
 </td><th class="text-danger">***</th></tr>
 	<tr><th>Nomor Nota Persetujuan BAKN</th><td><input type="text" name="no_nota_persetujuan_bakn" class="form-control" value="<?= $no_nota_persetujuan_bakn ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Pejabat yang menetapkan</th><td><select class="form-control" name="pejabat_ygmenetapkan" required="">

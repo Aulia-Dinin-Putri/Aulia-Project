@@ -11,7 +11,7 @@
                 <tr>
                   <th>No</th>
                   <th>Nama Pegawai</th>
-				  <th>Bukti Pengangkatan</th>
+				  <th width="15%">Bukti Pengangkatan</th>
                   <th>No SK CPNS</th>
 				  <th>Tgl SK CPNS</th>
 				  <th>Gaji</th>
@@ -28,7 +28,12 @@
                 <tr>
                 <td><?= $no ?></td>
 				<td><?= $admin['nama'] ?></td>
-				<td><a href="<?= base_url() ?>template/data/<?= $admin['foto'] ?>" target="_blank" rel="noopener noreferrer"> <img src="<?= base_url() ?>template/data/<?= $admin['foto'] ?>" alt="" width="100"></a> </td>
+				<td>
+					<?php if($admin['foto'] != ""){ ?>
+						<a href="<?= base_url('template/data/'.$admin['foto']) ?>" class="btn btn-primary" download>Download <i class="fa fa-download"></i> </a> <a href="javascript:void(0)" target="_blank" class="btn btn-warning" onclick="window.open(`<?= base_url('template/data/'.$admin['foto']) ?>`)">Preview <i class="fa fa-link"></i> </a>
+
+					<?php } ?>
+				</td>
 				<td><?= $admin['no_sk_cpns'] ?></td>
 				<td><?= $admin['tgl_sk_cpns'] ?></td>
 				<td>Rp.<?= number_format($admin['gaji']) ?></td>
