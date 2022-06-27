@@ -11,7 +11,7 @@
 	                          <option value="IV/B">IV/B</option>
                               </select></td><th class="text-danger">***</th></tr>
 	<tr><th>TMT Jabatan</th><td><input type="date" name="tmt_jabatan" class="form-control" value="<?= $tmt_jabatan ?>"></td></tr>
-    <tr><td></td><th><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> <a href="http://localhost/simpeg_pupr/admin/jabatan" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></th></tr>
+    <tr><td></td><th><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> <a href="http://localhost/simpeg_pupr/admin/jabatan_read" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></th></tr>
     </form>	 
 </table>
  

@@ -19,7 +19,7 @@
 	<tr><td></td>
 	<th>
 		<input type="submit" name="kirim" value="Submit" class="btn btn-primary">
-		<a href="http://localhost/simpeg_pupr/admin/pendidikan" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a>
+		<a href="http://localhost/simpeg_pupr/admin/pendidikan_read" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a>
 	</th>
 	</tr>
     </form>	 

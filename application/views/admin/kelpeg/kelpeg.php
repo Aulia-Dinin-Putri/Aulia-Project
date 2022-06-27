@@ -1,5 +1,5 @@
 <td>
-	<a href="kelpeg2_tambah" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</a>
+	<a href="kelpegread_tambah" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</a>
 	<button onClick="window.print();" class="btn btn-warning"><i class="fa fa-print"></i> Print Data</button>
 	<a href="<?php echo base_url('excel2/export2_excel') ?>" class="btn btn-success" ><i class="fa fa-file-excel-o"></i> Excel</a>
 </td>
@@ -27,7 +27,7 @@
      <td><?= $admin['nama_ibu'] ?></td>
      <td><?= $admin['nama_is'] ?></td>
      <td class="text-center">
-		<a href="<?= base_url('admin/kelpeg2_detail/'.$admin['id_kelpeg']) ?>" class="btn btn-success"><i class="fa fa-search-plus"></i> Detail</a>
+		<a href="<?= base_url('admin/kelpegread_detail/'.$admin['id_kelpeg']) ?>" class="btn btn-success"><i class="fa fa-search-plus"></i> Detail</a>
 		<a href="<?= base_url('admin/kelpeg_hapus/'.$admin['id_kelpeg']) ?>" class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</a>
 	 </td>
 	 </tr>

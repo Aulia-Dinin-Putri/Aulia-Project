@@ -21,7 +21,15 @@
                 <?php $no=1; foreach($data as $admin): ?>
 					<tr>
 						<td><?= $no ?></td>
-						<td><?= $admin['nama'] ?></td>
+						<td>
+							<?php
+								if ($admin['nama'] == "") {
+									echo $admin['nama_admin'];
+								}else{
+									echo $admin['nama'];
+								}
+							?>
+						</td>
 						<td><?= $admin['no_skpenghargaan'] ?></td> 
 						<td><?= $admin['tgl_skpenghargaan'] ?></td>
 						<td><?= $admin['asal_skpenghargaan'] ?></td>

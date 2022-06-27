@@ -34,6 +34,8 @@
   <link rel="stylesheet" href="<?= base_url('template/admin') ?>/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <!-- bootstrap wysihtml5 - text editor -->
  <script src="<?= base_url('template/admin') ?>/bower_components/jquery/jquery-1.11.2.min.js"></script>
+
+ <link rel="stylesheet" href="https://adminlte.io/themes/AdminLTE/bower_components/select2/dist/css/select2.min.css">
  
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -177,7 +179,7 @@ if($this->session->userdata('level') =="admin"){
   
 	<li class="treeview">
 		<li><a href="<?= base_url('admin/pegawai_read') ?>" class="active"><i class="fa fa-circle-o"></i>Pegawai</a></li>
-		<li><a href="<?= base_url('admin/kelpeg2') ?>" class="active"><i class="fa fa-circle-o"></i>Keluarga Pegawai</a></li>
+		<li><a href="<?= base_url('admin/kelpeg_read') ?>" class="active"><i class="fa fa-circle-o"></i>Keluarga Pegawai</a></li>
 		<li><a href="<?= base_url('admin/gaji_read') ?>" class="active"><i class="fa fa-circle-o"></i>Penggajian Pegawai</a></li>	
 		<li class="treeview">
 			<a href="#">

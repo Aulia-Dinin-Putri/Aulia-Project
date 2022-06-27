@@ -11,7 +11,6 @@
                 <tr>
                   <th>No</th>
                   <th>Nama Pegawai</th>
-				  <th width="15%">Bukti Pengangkatan</th>
                   <th>No SK CPNS</th>
 				  <th>Tgl SK CPNS</th>
 				  <th>Gaji</th>
@@ -20,6 +19,7 @@
 				  <th>Jabatan</th>
 				  <th>OPD</th>
 				  <th>T.M.T SPMT</th>
+				  <th>Bukti</th>
                   <th>Aksi</th>
                 </tr>
                 </thead>
@@ -28,12 +28,6 @@
                 <tr>
                 <td><?= $no ?></td>
 				<td><?= $admin['nama'] ?></td>
-				<td>
-					<?php if($admin['foto'] != ""){ ?>
-						<a href="<?= base_url('template/data/'.$admin['foto']) ?>" class="btn btn-primary" download>Download <i class="fa fa-download"></i> </a> <a href="javascript:void(0)" target="_blank" class="btn btn-warning" onclick="window.open(`<?= base_url('template/data/'.$admin['foto']) ?>`)">Preview <i class="fa fa-link"></i> </a>
-
-					<?php } ?>
-				</td>
 				<td><?= $admin['no_sk_cpns'] ?></td>
 				<td><?= $admin['tgl_sk_cpns'] ?></td>
 				<td>Rp.<?= number_format($admin['gaji']) ?></td>
@@ -42,6 +36,12 @@
 				<td><?= $admin['jabatan'] ?></td>
 				<td><?= $admin['opd'] ?></td>
 				<td><?= $admin['tmt_spmt'] ?></td>
+				<td>
+					<?php if($admin['foto'] != ""){ ?>
+						<a href="<?= base_url('template/data/'.$admin['foto']) ?>" class="btn btn-primary" download>Download <i class="fa fa-download"></i> </a> <a href="javascript:void(0)" target="_blank" class="btn btn-warning" onclick="window.open(`<?= base_url('template/data/'.$admin['foto']) ?>`)">Preview <i class="fa fa-link"></i> </a>
+
+					<?php } ?>
+				</td>
                 <td>
 					<a href="<?= base_url('admin/pengangkatancpns_hapus/'.$admin['id_angkat_cpns']) ?>" class="btn btn-danger"> <i class="fa fa-trash"></i> Hapus</a>
 				</td> 

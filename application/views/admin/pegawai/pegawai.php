@@ -19,7 +19,7 @@
       <th>Pendidikan</th>
       <th>Status Kepegawaian</th>
       <th>Alamat Lengkap</th>
-      <th width="14%" class="text-center">Aksi</th>
+      <th>Aksi</th>
     </tr>
     </thead>
      <tbody>
@@ -34,8 +34,10 @@
      <td><?= $admin['pendidikan'] ?></td>
      <td><?= $admin['status_kep'] ?></td>
      <td><?= $admin['alamat'] ?></td>
-     <td class="text-center"><a href="<?= base_url('admin/pegawai_read_detail/'.$admin['id_pegawai']) ?>" class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i> Detail </a>
-     <a href="<?= base_url('admin/pegawai_hapus/'.$admin['id_pegawai']) ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</a></td> 
+     <td>
+		<a href="<?= base_url('admin/pegawai_read_detail/'.$admin['id_pegawai']) ?>" class="btn btn-success btn-sm"><i class="fa fa-search-plus"></i> Detail </a>
+		<a href="<?= base_url('admin/pegawai_hapus/'.$admin['id_pegawai']) ?>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</a>
+	</td> 
      </tr>
      <?php $no++; endforeach; ?>
      </tbody>

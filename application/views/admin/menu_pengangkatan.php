@@ -12,7 +12,7 @@
             <div class="icon">
               <i class="fa fa-cubes"></i>
             </div>
-            <a href="<?= base_url() ?>admin/pengangkatancpns" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="http://localhost/simpeg_pupr/admin/pengangkatancpns" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 		
@@ -26,7 +26,7 @@
             <div class="icon">
              <i class="fa fa-cubes"></i>
             </div>
-            <a href="<?= base_url() ?>admin/pengangkatanpns" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="http://localhost/simpeg_pupr/admin/pengangkatanpns" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
 <?php } ?>

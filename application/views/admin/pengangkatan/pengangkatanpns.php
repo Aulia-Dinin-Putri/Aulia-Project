@@ -11,7 +11,6 @@
                 <tr>
 					<th>No</th>
 					<th>Nama Pegawai</th>
-					<th width="15%">Bukti Pengangkatan</th>
 					<th>Nomor SK</th>
 					<th>Pejabat yang menetapkan</th>
 					<th>Gapok</th>
@@ -20,6 +19,7 @@
         			<th>T.M.T PNS</th>
         			<th>Suket Kesehatan</th>
         			<th>STTPL</th>
+					<th>Bukti Pengangkatan</th>
                   <th>Aksi</th>
                 </tr>
                 </thead>
@@ -28,12 +28,6 @@
                 <tr>
 					<td><?= $no ?></td>
 					<td><?= $admin['nama'] ?></td>
-					<td>
-						<?php if($admin['bukti'] != ""){ ?>
-							<a href="<?= base_url('template/data/'.$admin['bukti']) ?>" class="btn btn-primary" download>Download <i class="fa fa-download"></i> </a> <a href="javascript:void(0)" target="_blank" class="btn btn-warning" onclick="window.open(`<?= base_url('template/data/'.$admin['bukti']) ?>`)">Preview <i class="fa fa-link"></i> </a>
-
-						<?php } ?>	
-					</td>
 					<td><?= $admin['no_sk'] ?></td> 
 					<td><?= $admin['pejabat_ygmenetapkan'] ?></td>
         			<td>Rp.<?= number_format($admin['gapok_sk']) ?></td>
@@ -42,6 +36,12 @@
         			<td><?= $admin['tmt_pns'] ?></td>
         			<td><?= $admin['suket_kesehatan'] ?></td>
         			<td><?= $admin['sttpl'] ?></td>
+					<td>
+					<?php if($admin['bukti'] != ""){ ?>
+						<a href="<?= base_url('template/data/'.$admin['bukti']) ?>" class="btn btn-primary" download>Download <i class="fa fa-download"></i> </a> <a href="javascript:void(0)" target="_blank" class="btn btn-warning" onclick="window.open(`<?= base_url('template/data/'.$admin['bukti']) ?>`)">Preview <i class="fa fa-link"></i> </a>
+
+					<?php } ?>
+					</td>
                 <td>
 					<a href="<?= base_url('admin/pengangkatanpns_hapus/'.$admin['id_angkat_pns']) ?>" class="btn btn-danger"> <i class="fa fa-trash"></i> Hapus</a>
 				</td> 

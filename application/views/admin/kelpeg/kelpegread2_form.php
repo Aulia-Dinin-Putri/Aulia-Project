@@ -102,7 +102,7 @@
 	}
 ?>
 <tr><td></td><td><input type="submit" name="kirim" value="Submit" class="btn btn-primary">
-	<a href="http://localhost/simpeg_pupr/admin/kelpeg2" class="btn btn-danger" class="small-box-footer">Batal <i class="fa fa-cancel"></i></a>
+	<a href="http://localhost/simpeg_pupr/admin/kelpeg_read" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a>
 </td></tr>
 
 </form>

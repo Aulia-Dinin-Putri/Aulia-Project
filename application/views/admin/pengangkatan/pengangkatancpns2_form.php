@@ -1,13 +1,5 @@
 <table class="table table-reposive">
-	<?php 
-		if($aksi == 'edit'){
-			echo '<form action="'. base_url() .'admin/pengangkatancpns_edit/'.$id_angkat_cpns.'" method="POST" enctype="multipart/form-data">';
-		}else{
-			echo '<form action="'. base_url() .'admin/pengangkatancpns_tambah" method="POST" enctype="multipart/form-data">';
-
-			}
-	?>
-	
+	<form action="<?= base_url() ?>admin/pengangkatancpns_edit/<?= $id_angkat_cpns ?>" method="POST" enctype="multipart/form-data">
 	<tr><th>Tanggal Persetujuan BAKN</th><td><input type="date" name="tgl_persetujuan_bakn" class="form-control" value="<?= $tgl_persetujuan_bakn ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Nomor Nota Persetujuan BAKN</th><td><input type="text" name="no_nota_persetujuan_bakn" class="form-control" value="<?= $no_nota_persetujuan_bakn ?>" required=""></td><th class="text-danger" >***</th></tr>
@@ -89,7 +81,7 @@
 	?>
 <input type="file" name="gambar" value="<?= $foto ?>" class="form-control" accept=".pdf" required="">
 </td><th class="text-danger">***</th></tr>
-    <tr><td></td><td><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> &nbsp;&nbsp; <a href="http://localhost/simpeg_pupr/admin/pengangkatancpns" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></td></tr>
+    <tr><td></td><td><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> &nbsp;&nbsp; <a href="http://localhost/simpeg_pupr/admin/pengangkatancpns_read" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></td></tr>
 	</form>	 
 </table>
  

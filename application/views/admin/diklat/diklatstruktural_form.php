@@ -1,53 +1,217 @@
 <table class="table table-striped">
+<a href="#"> <button onClick="window.print();" class="btn btn-warning"><i class="fa fa-print"></i>Print Data</button></a>
 <form action="" method="POST" enctype="multipart/form-data"> 
-	<tr><th>Nip</th><td><input type="text" name="nip" class="form-control" value="<?= $nip ?>" required=""></td><th class="text-danger" >***</th></tr>
-	<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" required=""></td><th class="text-danger" >***</th></tr>
-	<tr><th>Nama DiklatI</th><td><input type="text" name="diklatI" class="form-control" value="<?= $diklatI ?>" required=""></td><th class="text-danger" >***</th></tr>
-	<tr><th>Jam DiklatI</th><td><input type="text" name="jam_diklatI" class="form-control" value="<?= $jam_diklatI ?>"></td></tr>
-	<tr><th>Tanggal DiklatI</th><td><input type="text" name="tgl_diklatI" class="form-control" value="<?= $tgl_diklatI ?>"></td></tr>
-	<tr><th>Tahun DiklatI</th><td><input type="text" name="tahun_diklatI" class="form-control" value="<?= $tahun_diklatI ?>"></td></tr>
-	<tr><th>Angkatan DiklatI</th><td><input type="text" name="angkatan_diklatI" class="form-control" value="<?= $angkatan_diklatI ?>"></td></tr>
-	<tr><th>No DiklatI</th><td><input type="text" name="no_diklatI" class="form-control" value="<?= $no_diklatI ?>"></td></tr>
-	<tr><th>Penyelenggara DiklatI</th><td><input type="text" name="penyelenggara_diklatI" class="form-control" value="<?= $penyelenggara_diklatI ?>"></td></tr>
-	<tr><th>Tempat DiklatI</th><td><input type="text" name="tempat_diklatI" class="form-control" value="<?= $tempat_diklatI ?>"></td></tr>
+<table id="example1" class="table table-striped table-bordered">
+	<tr>
+	<td width="500">NIP</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $nip ?></td>
+	</tr>
+	
+	<tr>
+	<td>Nama</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $nama ?></td>
+	</tr>
+	
+	<tr>
+	<td>DiklatI</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $diklatI ?></td>
+	</tr>
+	
+	<tr>
+	<td>Jam DiklatI</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $jam_diklatI ?></td>
+	</tr>
+	
+	<tr>
+	<td>Tanggal DiklatI</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $tgl_diklatI ?></td>
+	</tr>
+	
+	<tr>
+	<td>Tahun DiklatI</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $tahun_diklatI ?></td>
+	</tr>
+	
+	<tr>
+	<td>Angkatan DiklatI</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $angkatan_diklatI ?></td>
+	</tr>
+	
+	<tr>
+	<td>No DiklatI</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $no_diklatI ?></td>
+	</tr>
+	
+	<tr>
+	<td>Penyelenggara DiklatI</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $penyelenggara_diklatI ?></td>
+	</tr>
+	
+	<tr>
+	<td>Tempat DiklatI</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $tempat_diklatI ?></td>
+	</tr>
 
-	<tr><th>Nama DiklatII</th><td><input type="text" name="diklatII" class="form-control" value="<?= $diklatII ?>" required=""></td><th class="text-danger" >***</th></tr>
-	<tr><th>Jam DiklatII</th><td><input type="text" name="jam_diklatII" class="form-control" value="<?= $jam_diklatII ?>"></td></tr>
-	<tr><th>Tanggal DiklatII</th><td><input type="text" name="tgl_diklatII" class="form-control" value="<?= $tgl_diklatII ?>"></td></tr>
-	<tr><th>Tahun DiklatII</th><td><input type="text" name="tahun_diklatII" class="form-control" value="<?= $tahun_diklatII ?>"></td></tr>
-	<tr><th>Angkatan DiklatII</th><td><input type="text" name="angkatan_diklatII" class="form-control" value="<?= $angkatan_diklatII ?>"></td></tr>
-	<tr><th>No DiklatII</th><td><input type="text" name="no_diklatII" class="form-control" value="<?= $no_diklatII ?>"></td></tr>
-	<tr><th>Penyelenggara DiklatII</th><td><input type="text" name="penyelenggara_diklatII" class="form-control" value="<?= $penyelenggara_diklatII ?>"></td></tr>
-	<tr><th>Tempat DiklatII</th><td><input type="text" name="tempat_diklatII" class="form-control" value="<?= $tempat_diklatII ?>"></td></tr>
+	<tr>
+	<td>DiklatII</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $diklatII ?></td>
+	</tr>
+	
+	<tr>
+	<td>Jam DiklatII</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $jam_diklatII ?></td>
+	</tr>
+	
+	<tr>
+	<td>Tanggal DiklatII</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $tgl_diklatII ?></td>
+	</tr>
+	
+	<tr>
+	<td>Tahun DiklatII</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $tahun_diklatII ?></td>
+	</tr>
+	
+	<tr>
+	<td>Angkatan DiklatII</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $angkatan_diklatII ?></td>
+	</tr>
+	
+	<tr>
+	<td>No DiklatII</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $no_diklatII ?></td>
+	</tr>
+	
+	<tr>
+	<td>Penyelenggara DiklatII</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $penyelenggara_diklatII ?></td>
+	</tr>
+	
+	<tr>
+	<td>Tempat DiklatII</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $tempat_diklatII ?></td>
+	</tr>
 
-	<tr><th>Nama DiklatIII</th><td><input type="text" name="diklatIII" class="form-control" value="<?= $diklatIII ?>" required=""></td><th class="text-danger" >***</th></tr>
-	<tr><th>Jam DiklatIII</th><td><input type="text" name="jam_diklatIII" class="form-control" value="<?= $jam_diklatIII ?>"></td></tr>
-	<tr><th>Tanggal DiklatIII</th><td><input type="text" name="tgl_diklatIII" class="form-control" value="<?= $tgl_diklatIII ?>"></td></tr>
-	<tr><th>Tahun DiklatIII</th><td><input type="text" name="tahun_diklatIII" class="form-control" value="<?= $tahun_diklatIII ?>"></td></tr>
-	<tr><th>Angkatan DiklatIII</th><td><input type="text" name="angkatan_diklatIII" class="form-control" value="<?= $angkatan_diklatIII ?>"></td></tr>
-	<tr><th>No DiklatIII</th><td><input type="text" name="no_diklatIII" class="form-control" value="<?= $no_diklatIII ?>"></td></tr>
-	<tr><th>Penyelenggara DiklatIII</th><td><input type="text" name="penyelenggara_diklatIII" class="form-control" value="<?= $penyelenggara_diklatIII ?>"></td></tr>
-	<tr><th>Tempat DiklatIII</th><td><input type="text" name="tempat_diklatIII" class="form-control" value="<?= $tempat_diklatIII ?>"></td></tr>
+	<tr>
+	<td>DiklatIII</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $diklatIII ?></td>
+	</tr>
+	
+	<tr>
+	<td>Jam DiklatIII</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $jam_diklatIII ?></td>
+	</tr>
+	
+	<tr>
+	<td>Tanggal DiklatIII</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $tgl_diklatIII ?></td>
+	</tr>
+	
+	<tr>
+	<td>Tahun DiklatIII</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $tahun_diklatIII ?></td>
+	</tr>
+	
+	<tr>
+	<td>Angkatan DiklatIII</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $angkatan_diklatIII ?></td>
+	</tr>
+	
+	<tr>
+	<td>No DiklatIII</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $no_diklatIII ?></td>
+	</tr>
+	
+	<tr>
+	<td>Penyelenggara DiklatIII</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $penyelenggara_diklatIII ?></td>
+	</tr>
+	
+	<tr>
+	<td>Tempat DiklatIII</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $tempat_diklatIII ?></td>
+	</tr>
 
-	<tr><th>Nama DiklatIV</th><td><input type="text" name="diklatIV" class="form-control" value="<?= $diklatIV ?>" required=""></td><th class="text-danger" >***</th></tr>
-	<tr><th>Jam DiklatIV</th><td><input type="text" name="jam_diklatIV" class="form-control" value="<?= $jam_diklatIV ?>"></td></tr>
-	<tr><th>Tanggal DiklatIV</th><td><input type="text" name="tgl_diklatIV" class="form-control" value="<?= $tgl_diklatIV ?>"></td></tr>
-	<tr><th>Tahun DiklatIV</th><td><input type="text" name="tahun_diklatIV" class="form-control" value="<?= $tahun_diklatIV ?>"></td></tr>
-	<tr><th>Angkatan DiklatIV</th><td><input type="text" name="angkatan_diklatIV" class="form-control" value="<?= $angkatan_diklatIV ?>"></td></tr>
-	<tr><th>No DiklatIV</th><td><input type="text" name="no_diklatIV" class="form-control" value="<?= $no_diklatIV ?>"></td></tr>
-	<tr><th>Penyelenggara DiklatIV</th><td><input type="text" name="penyelenggara_diklatIV" class="form-control" value="<?= $penyelenggara_diklatIV ?>"></td></tr>
-	<tr><th>Tempat DiklatIV</th><td><input type="text" name="tempat_diklatIV" class="form-control" value="<?= $tempat_diklatIV ?>"></td></tr>
-
-	<tr><td></td><th><input type="submit" name="kirim" value="Submit" class="btn btn-primary"></th></tr>
-
+	<tr>
+	<td>DiklatIV</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $diklatIV ?></td>
+	</tr>
+	
+	<tr>
+	<td>Jam DiklatIV</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $jam_diklatIV ?></td>
+	</tr>
+	
+	<tr>
+	<td>Tanggal DiklatIV</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $tgl_diklatIV ?></td>
+	</tr>
+	
+	<tr>
+	<td>Tahun DiklatIV</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $tahun_diklatIV ?></td>
+	</tr>
+	
+	<tr>
+	<td>Angkatan DiklatIV</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $angkatan_diklatIV ?></td>
+	</tr>
+	
+	<tr>
+	<td>No DiklatIV</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $no_diklatIV ?></td>
+	</tr>
+	
+	<tr>
+	<td>Penyelenggara DiklatIV</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $penyelenggara_diklatIV ?></td>
+	</tr>
+	
+	<tr>
+	<td>Tempat DiklatIV</td>
+	<td width="70" text align="center">:</td>
+	<td><?= $tempat_diklatIV ?></td>
+	</tr>
+	 
 <?php
 	$disabled = "";
 	if($aksi == "edit"){
 		$disabled = "disabled";
 	}
 ?>
-<tr><td></td><td><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> &nbsp;&nbsp;<input type="reset" name="g" value="Batal" class="btn btn-danger"></td></tr>
-
 </form>
 </table>
 <?php 

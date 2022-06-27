@@ -8,11 +8,6 @@
 		<tr>
 		<td></td>
 		<td></td>
-		<td>
-			<p><?= $admin['foto'] ?></p>
-			<a href="<?= base_url('template/data/'.$admin['foto']) ?>" class="btn btn-primary" download>Download <i class="fa fa-download"></i> </a>
-			<a href="javascript:void(0)" target="_blank" class="btn btn-warning" onclick="window.open(`<?= base_url('template/data/'.$admin['foto']) ?>`)">Preview <i class="fa fa-link"></i> </a>
-		</td>
 		</tr>
 		<tr>
 		<td width="200">Nama Pegawai</td>
@@ -58,6 +53,15 @@
 		<td>T.M.T SPMT</td>
 		<td>:</td>
 		<td><?= $admin['tmt_spmt'] ?></td>
+		</tr>
+		<tr>
+		<td>Bukti</td>
+		<td>:</td>
+		<td>
+			<p><?= $admin['foto'] ?></p>
+			<a href="<?= base_url('template/data/'.$admin['foto']) ?>" class="btn btn-primary" download>Download <i class="fa fa-download"></i> </a>
+			<a href="javascript:void(0)" target="_blank" class="btn btn-warning" onclick="window.open(`<?= base_url('template/data/'.$admin['foto']) ?>`)">Preview <i class="fa fa-link"></i> </a>
+		</td>
 		</tr>
 		<?php }; ?>
     </table>

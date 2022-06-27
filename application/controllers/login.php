@@ -14,22 +14,30 @@ class Login extends CI_controller{
 				$DataAdmin=$admin->row_array();
 				$sessionAdmin = array(
 				'admin'    => TRUE,
-				'id_admin' => $DataAdmin['id_admin'],'username' => $DataAdmin['username'],'password' => $DataAdmin['password'],
-				'nama'     => $DataAdmin['nama'],'level'    => $DataAdmin['level'] );
+				'id_admin' => $DataAdmin['id_admin'],
+				'username' => $DataAdmin['username'],
+				'password' => $DataAdmin['password'],
+				'nama'     => $DataAdmin['nama'],
+				'level'    => $DataAdmin['level'] );
 				$this->session->set_userdata($sessionAdmin);
 				$this->session->set_flashdata('pesan','<div class="btn btn-primary">Anda Berhasil Login .....</div>');
 				redirect(base_url('admin/index'));
 			}elseif($pegawai->num_rows() > 0){
 				$DataPegawai=$pegawai->row_array();
 				$sessionPegawai = array(
-				'admin'    => TRUE,
-				'id_pegawai'=> $DataPegawai['id_pegawai'],'username'  => $DataPegawai['username'],
-				'password'  => $DataPegawai['password'],'nama'      => $DataPegawai['nama'],'level'     => 'pegawai',);	
+					'admin'    	=> TRUE,
+					'id_pegawai'=> $DataPegawai['id_pegawai'],
+					'id_admin'	=> $DataPegawai['id_admin'],
+					'username'  => $DataPegawai['username'],
+					'password'  => $DataPegawai['password'],
+					'nama'      => $DataPegawai['nama'],
+					'level'     => 'pegawai',
+				);	
 				$this->session->set_userdata($sessionPegawai);
 				$this->session->set_flashdata('pesan','<div class="btn btn-primary">Anda Berhasil Login .....</div>');
 				redirect(base_url('admin/index'));
 			}else{
-				$this->session->set_flashdata('pesan','<div class="btn btn-primary">Maaf Informasi Login Tidak Di Kenali <br />
+				$this->session->set_flashdata('pesan','<div class="btn btn-danger"> Maaf Informasi Login Tidak Di Kenali <br />
        	                             Username Dan Password Salah</div>');
 				redirect(base_url(''));}
 		}else{

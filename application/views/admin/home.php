@@ -8,13 +8,14 @@
 <body>
 	<div class="col-lg-6 col-xs-12">
 	<h3><center><i class="fa fa-pie-chart"></i>Grafik Pegawai Berdasarkan Jenis Kelamin</center></h3>
-	<?php $this->load->view('grafik/banding_jk.php')?>
+	<?php $this->load->view('grafik/banding_jk') ?>
 	</div>
 
 	<div class="col-lg-6 col-xs-12">
 	<h3><center><i class="fa fa-line-chart"></i>Grafik Pegawai Berdasarkan Pendidikan</center></h3>
-	<?php $this->load->view('grafik/banding_pendidikan.php')?>
+	<?php $this->load->view('grafik/banding_pendidikan') ?>
 	</div>
+
 </body>
 </html>
 	

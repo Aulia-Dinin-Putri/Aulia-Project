@@ -19,7 +19,7 @@
 				  <th>T.M.T KGB</th>
 				  <th>Tahun</th>
 				  <th>Bulan</th>
-                  <th width="14%" class="text-center"> Aksi</th>
+				  <th width= "25%">Aksi</th>
                 </tr>
                 </thead>
                  <tbody>

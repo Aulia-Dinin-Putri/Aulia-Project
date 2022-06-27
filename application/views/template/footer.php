@@ -267,5 +267,12 @@
 <script src="<?= base_url('template/admin') ?>/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url('template/admin') ?>/dist/js/demo.js"></script>
+<script src="https://adminlte.io/themes/AdminLTE/bower_components/select2/dist/js/select2.full.min.js"></script>
+<script>
+    $(function () {
+      //Initialize Select2 Elements
+      $('.select2').select2()
+    })
+</script>
 </body>
 </html>

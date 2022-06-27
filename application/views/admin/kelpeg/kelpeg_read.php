@@ -1,7 +1,7 @@
 <a href="kelpeg2"> <button onClick="window.print();" class="btn btn-warning"><i class="fa fa-print"></i>Print Data</button></a>
 	<table id="example1" class="table table-striped table-bordered text-left">		 
 		<?php foreach($data as $admin){ ?>
-		<form action="<?= base_url('admin/kelpeg2_edit/'.$admin['id_kelpeg']) ?>" method="POST" enctype="multipart/form-data" style="border-collapse:collapse; width:100%; margin:0 auto; text-align:center;">
+		<form action="<?= base_url('admin/kelpegread_edit/'.$admin['id_kelpeg']) ?>" method="POST" enctype="multipart/form-data" style="border-collapse:collapse; width:100%; margin:0 auto; text-align:center;">
 		<tr>
 		<td width="300">Nama Pegawai</td>
 		<td width="10">:</td>

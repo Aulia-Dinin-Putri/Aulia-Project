@@ -1,7 +1,10 @@
 <a href="pendidikan_read"> <button onClick="window.print();" class="btn btn-warning"> <i class="fa fa-print"></i> Print Data</button></a>
-<form action="" method="POST" enctype="multipart/form-data" style="border-collapse:collapse; width:100%; margin:0 auto; text-align:center;">
     <table id="example1" class="table table-striped table-bordered text-left">
 		<?php foreach($data as $admin){ ?>
+		<form action="<?= base_url('admin/pendidikan_edit/'.$admin['id_pendidikan']) ?>" method="POST" enctype="multipart/form-data" style="border-collapse:collapse; width:100%; margin:0 auto; text-align:center;">
+		<tr>
+			<button type="submit" class="btn btn-info"><i class="fa fa-edit"></i>Edit</button>
+		</tr>
 		<tr>
 		<td width="100">NIP</td>
 		<td width="10">:</td>
@@ -46,9 +49,6 @@
 		<td>Pendidikan Akhir</td>
 		<td>:</td>
 		<td><?= $admin['pend_akhir'] ?></td>
-		</tr>
-		<tr>
-			<a href="<?= base_url('admin/pendidikan_edit/'.$admin['id_pendidikan']) ?>" class="btn btn-info"><i class="fa fa-edit"></i>Edit</a>
 		</tr>
 		<?php }; ?>
     </table>

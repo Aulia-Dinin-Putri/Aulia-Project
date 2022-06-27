@@ -86,12 +86,12 @@ class Admin extends CI_controller
                Data Berhasil Di Diedit.
               </div>';
     $this->session->set_flashdata('pesan',$pesan);
-    redirect(base_url('admin/jabatan/jabatan_read'));
+    redirect(base_url('admin/jabatan_read'));
       }else{
        echo "ERROR input Data";
       }
     }else{
-     tpl('admin/jabatan/jabatan_form',$x);
+     tpl('admin/jabatan/jabatanread_form',$x);
     }
   }
 
@@ -124,83 +124,6 @@ class Admin extends CI_controller
    $x = array('judul' =>':: Data Pegawai ::', 
               'data'=>$this->db->get('pegawai')->result_array()); 
    tpl('admin/pegawai/pegawai',$x);
-  }
-
-  public function pegawai_edit($id='')
-  {
-
-  $data=$this->db->get_where('pegawai',array('id_pegawai'=>$id))->row_array();  
-  $x = array(
-    'aksi'=>'edit',
-    'judul' =>'Tambah Data Pegawai' ,
-    'id_pegawai'=>$data['id_pegawai'],
-    'nip'=>$data['nip'],
-    'nama'=>$data['nama'],
-    'jk'=>$data['jk'],
-    'foto'=>$data['foto'],
-    'agama'=>$data['agama'],
-    'pendidikan'=>$data['pendidikan'],
-    'status_kep'=>$data['status_kep'],
-    'alamat'=>$data['alamat']
-  );
-    
-  if (isset($_POST['kirim'])) {     
-    if(empty($_FILES['gambar']['name'])){
-      $SQLinsert=array(
-      'nip'=>$this->input->post('nip'),
-      'nama'=>$this->input->post('nama'),
-      'jk'=>$this->input->post('jk'),
-      'foto'=>$this->upload->file_name,
-      'agama'=>$this->input->post('agama'),
-      'pendidikan'=>$this->input->post('pendidikan'),
-      'status_kep'=>$this->input->post('status_kep'),
-      'alamat'=>$this->input->post('alamat')
-      );
-
-      $this->db->update('pegawai',$SQLinsert,array('id_pegawai'=>$id));
-      $pesan='<div class="alert alert-success alert-dismissible">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                      <h4><i class="icon fa fa-check"></i> Success!</h4>
-                     Data Berhasil Di Edit.
-                    </div>';
-      $this->session->set_flashdata('pesan',$pesan);
-      redirect(base_url('admin/pegawai'));
-    }else{
-        $config['upload_path'] = './template/data/'; 
-        $config['allowed_types'] = 'bmp|jpg|png';  
-        $config['file_name'] = 'foto_'.time();  
-        $this->load->library('upload', $config);
-        $this->upload->initialize($config);
-        if($this->upload->do_upload('gambar')){
-          $SQLinsert=array(
-          'nip'=>$this->input->post('nip'),
-          'nama'=>$this->input->post('nama'),
-          'jk'=>$this->input->post('jk'),
-          'foto'=>$this->upload->file_name,
-          'agama'=>$this->input->post('agama'),
-          'pendidikan'=>$this->input->post('pendidikan'),
-          'status_kep'=>$this->input->post('status_kep'),
-          'alamat'=>$this->input->post('alamat')
-          );
-          $cek=$this->db->update('pegawai',$SQLinsert,array('id_pegawai'=>$id));
-          if($cek){
-              $pesan='<div class="alert alert-success alert-dismissible">
-                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                          <h4><i class="icon fa fa-check"></i> Success!</h4>
-                         Data Berhasil Di Edit.
-                        </div>';
-              $this->session->set_flashdata('pesan',$pesan);
-              redirect(base_url('admin/pegawai/pegawai'));
-          }else{
-           echo "QUERY SQL ERROR";
-          }
-        }else{
-          echo $this->upload->display_errors();
-        }
-     }
-    }else{
-      tpl('admin/pegawai/pegawai_form',$x);
-    }
   }
 
   public function pegawai_hapus($id='')
@@ -460,59 +383,117 @@ public function proses()
 
 public function penghargaan()
   {
-   $x = array('judul' =>'Data Penghargaan', 
-              'data'=>$this->db->get('penghargaan')->result_array()); 
-   tpl('admin/penghargaan/penghargaan',$x);
+    $this->db->select('penghargaan.id_penghargaan, penghargaan.nama, penghargaan.no_skpenghargaan, penghargaan.tgl_skpenghargaan, penghargaan.asal_skpenghargaan, admin.nama AS nama_admin');
+    $this->db->from('penghargaan');
+    $this->db->join('admin', 'penghargaan.id_admin=admin.id_admin');
+    $data_penghargaan = $this->db->get();
+
+    $x = array(
+      'judul' =>'Data Penghargaan', 
+      'data' => $data_penghargaan->result_array()
+    ); 
+    tpl('admin/penghargaan/penghargaan',$x);
   }
 
   public function penghargaan_tambah()
   {
-  $x = array('judul'        => 'Tambah Data Penghargaan' ,
-              'aksi'        => 'tambah',
-              'kode'=> "",
-			  'nama'=> "",
-			  'no_skpenghargaan'=> "",
-              'tgl_skpenghargaan'=> "",
-              'asal_skpenghargaan'=> ""); 
+    $x = array(
+      'judul'       => 'Tambah Data Penghargaan' ,
+      'aksi'        => 'tambah',
+      'nama'        => "",
+      'no_skpenghargaan' => "",
+      'tgl_skpenghargaan' => "",
+      'asal_skpenghargaan' => "",
+      'data_pegawai' => $this->db->query("SELECT * FROM admin WHERE level='user'")->result()
+    ); 
     if(isset($_POST['kirim'])){
       $inputData=array(
-        'kode'=>$this->input->post('kode'),
-		'nama'=>$this->input->post('nama'),
-		'no_skpenghargaan'=>$this->input->post('no_skpenghargaan'),
-        'tgl_skpenghargaan'=>$this->input->post('tgl_skpenghargaan'),
-        'asal_skpenghargaan'=>$this->input->post('asal_skpenghargaan'));
-      $cek=$this->db->insert('penghargaan',$inputData);
+        'id_admin' =>  $this->input->post('id_admin'),
+        'no_skpenghargaan' => $this->input->post('no_skpenghargaan'),
+        'tgl_skpenghargaan' => $this->input->post('tgl_skpenghargaan'),
+        'asal_skpenghargaan' => $this->input->post('asal_skpenghargaan')
+      );
+      $cek = $this->db->insert('penghargaan',$inputData);
       if($cek){
-        $pesan='<div class="alert alert-success alert-dismissible">
+        $pesan ='<div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                 <h4><i class="icon fa fa-check"></i> Success!</h4>
-               Data Berhasil Di Ditambahkan.
+              Data Berhasil Di Ditambahkan.
               </div>';
-    $this->session->set_flashdata('pesan',$pesan);
-    redirect(base_url('admin/penghargaan/penghargaan'));
+        $this->session->set_flashdata('pesan',$pesan);
+        redirect(base_url('admin/penghargaan'));
       }else{
-       echo "ERROR input Data";
+        echo "ERROR input Data";
       }
     }else{
-     tpl('admin/penghargaan/penghargaan_form',$x);
+      tpl('admin/penghargaan/penghargaan_form',$x);
+    }
+  }
+
+  public function penghargaan_tambah_user()
+  {
+    if (!$this->session->userdata('id_pegawai')) {
+      $inputData=array(
+        'id_admin' => $this->session->userdata('id_admin'),
+        'nama' => $this->input->post('nama'),
+        'no_skpenghargaan' => $this->input->post('no_skpenghargaan'),
+        'tgl_skpenghargaan' => $this->input->post('tgl_skpenghargaan'),
+        'asal_skpenghargaan' => $this->input->post('asal_skpenghargaan')
+      );
+    }else{
+      $inputData=array(
+        'id_pegawai' => $this->session->userdata('id_pegawai'),
+        'id_admin' => $this->session->userdata('id_admin'),
+        'nama' => $this->input->post('nama'),
+        'no_skpenghargaan' => $this->input->post('no_skpenghargaan'),
+        'tgl_skpenghargaan' => $this->input->post('tgl_skpenghargaan'),
+        'asal_skpenghargaan' => $this->input->post('asal_skpenghargaan')
+      );
+    }
+    $cek = $this->db->insert('penghargaan',$inputData);
+    if($cek){
+      $pesan ='<div class="alert alert-success alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <h4><i class="icon fa fa-check"></i> Success!</h4>
+             Data Berhasil Di Ditambahkan.
+            </div>';
+      $this->session->set_flashdata('pesan',$pesan);
+      redirect(base_url('admin/penghargaan_read'));
+    }else{
+      echo "ERROR input Data";
     }
   }
   
   public function penghargaan_edit($id='')
   {
-  $sql=$this->db->get_where('penghargaan',array('id_penghargaan'=>$id))->row_array(); 
-  $x = array('judul'        =>'Tambah Data Penghargaan' ,
-              'aksi'        =>'tambah',
-		'nama'=>$sql['nama'],
-		'no_skpenghargaan'=>$sql['no_skpenghargaan'],
-        'tgl_skpenghargaan'    =>$sql['tgl_skpenghargaan'],
-        'asal_skpenghargaan'         =>$sql['asal_skpenghargaan']); 
+    // $sql = $this->db->get_where('penghargaan',array('id_penghargaan'=>$id))->row_array(); 
+
+    $this->db->select('penghargaan.id_penghargaan, penghargaan.nama, penghargaan.no_skpenghargaan, penghargaan.tgl_skpenghargaan, penghargaan.asal_skpenghargaan, admin.nama AS nama_admin');
+    $this->db->from('penghargaan');
+    $this->db->where('penghargaan.id_penghargaan', $id);
+    $this->db->join('admin', 'penghargaan.id_admin=admin.id_admin');
+    $data = $this->db->get();
+    $sql = $data->row_array();
+    if ($sql['nama'] == "") {
+      $nama = $sql['nama_admin'];
+    }else{
+      $nama = $sql['nama'];
+    }
+    $x = array(
+      'judul'         =>'Tambah Data Penghargaan' ,
+      'aksi'          =>'tambah',
+		  'nama'          => $nama,
+		  'no_skpenghargaan'=>$sql['no_skpenghargaan'],
+      'tgl_skpenghargaan'    =>$sql['tgl_skpenghargaan'],
+      'asal_skpenghargaan'         =>$sql['asal_skpenghargaan']
+    ); 
     if(isset($_POST['kirim'])){
       $inputData=array(
-		'nama'=>$this->input->post('nama'),
-		'no_skpenghargaan'=>$this->input->post('no_skpenghargaan'),
-        'tgl_skpenghargaan'    =>$this->input->post('tgl_skpenghargaan'),
-        'asal_skpenghargaan'         =>$this->input->post('asal_skpenghargaan'));
+		    'nama' => $this->input->post('nama'),
+		    'no_skpenghargaan' => $this->input->post('no_skpenghargaan'),
+        'tgl_skpenghargaan'    => $this->input->post('tgl_skpenghargaan'),
+        'asal_skpenghargaan'         => $this->input->post('asal_skpenghargaan')
+      );
       $cek=$this->db->update('penghargaan',$inputData,array('id_penghargaan'=>$id));
       if($cek){
         $pesan='<div class="alert alert-success alert-dismissible">
@@ -520,17 +501,21 @@ public function penghargaan()
                 <h4><i class="icon fa fa-check"></i> Success!</h4>
                Data Berhasil Di Diedit.
               </div>';
-    $this->session->set_flashdata('pesan',$pesan);
-    redirect(base_url('admin/penghargaan/penghargaan_read'));
+        $this->session->set_flashdata('pesan',$pesan);
+        if ($this->session->userdata('level') == 'admin') {
+          redirect(base_url('admin/penghargaan/penghargaan_read'));
+        }else{
+          redirect(base_url('admin/penghargaan_read'));
+        }
+        // redirect(base_url('admin/penghargaan/penghargaan_read'));
       }else{
        echo "ERROR input Data";
       }
     }else{
-     tpl('admin/penghargaan/penghargaan_form',$x);
+      tpl('admin/penghargaan/penghargaanread_form',$x);
     }
   }
 
-  
   public function penghargaan_hapus($id='')
   {
    $cek=$this->db->delete('penghargaan',array('id_penghargaan'=>$id));
@@ -541,17 +526,29 @@ public function penghargaan()
                Data Berhasil Di Hapus.
               </div>';
     $this->session->set_flashdata('pesan',$pesan);
-    redirect(base_url('admin/penghargaan/penghargaan'));
+    if ($this->session->userdata('level') == 'admin') {
+      redirect(base_url('admin/penghargaan'));
+    }else{
+      redirect(base_url('admin/penghargaan_read'));
+    }
    }
   }
   
   //untuk menampilkan di level user = penghargaan_read
   public function penghargaan_read()
   {
-   $id = $this->session->userdata('id_admin');
-   $x = array('judul' =>':: Data Penghargaan Pegawai ::', 
-              'data'=>$this->db->get_where('penghargaan', array('id_admin' => $id))->result_array()); 
-   tpl('admin/penghargaan/penghargaan_read',$x);
+    $id = $this->session->userdata('id_admin');
+
+    $this->db->select('penghargaan.id_penghargaan, penghargaan.nama, penghargaan.no_skpenghargaan, penghargaan.tgl_skpenghargaan, penghargaan.asal_skpenghargaan, admin.nama AS nama_admin');
+    $this->db->from('penghargaan');
+    $this->db->where('penghargaan.id_admin', $id);
+    $this->db->join('admin', 'penghargaan.id_admin=admin.id_admin');
+    $data_penghargaan = $this->db->get();
+
+    $x = array(
+      'judul' =>':: Data Penghargaan Pegawai ::', 
+      'data'=> $data_penghargaan->result_array()); 
+    tpl('admin/penghargaan/penghargaan_read',$x);
   }
   
 
@@ -741,7 +738,7 @@ public function pengangkatancpns()
           }
       }
     }else{
-      tpl('admin/pengangkatan/pengangkatancpns_form',$x);
+      tpl('admin/pengangkatan/pengangkatancpns2_form',$x);
     }
   }
  
@@ -825,8 +822,8 @@ public function pengangkatancpns()
               'sumpah_janji_pns'=> ""); 
     if(isset($_POST['kirim'])){
       $config['upload_path'] = './template/data/'; 
-      $config['allowed_types'] = 'bmp|jpg|png|pdf';  
-      $config['file_name'] = 'file_'.time();  
+      $config['allowed_types'] = 'bmp|jpg|png';  
+      $config['file_name'] = 'bukti_'.time();  
       $this->load->library('upload', $config);
       $this->upload->initialize($config);
       if($this->upload->do_upload('gambar')){
@@ -891,8 +888,8 @@ public function pengangkatancpns()
     ); 
     if(isset($_POST['kirim'])){
       $config['upload_path'] = './template/data/'; 
-      $config['allowed_types'] = 'bmp|jpg|png|pdf';  
-      $config['file_name'] = 'file_'.time();  
+      $config['allowed_types'] = 'bmp|jpg|png';  
+      $config['file_name'] = 'foto_'.time();  
       $this->load->library('upload', $config);
       $this->upload->initialize($config);
       if($this->upload->do_upload('gambar')){
@@ -1191,7 +1188,7 @@ public function pegawai_read()
                Data Berhasil Di Diedit.
               </div>';
               $this->session->set_flashdata('pesan',$pesan);
-              redirect(base_url('admin/pegawai/pegawai_read'));
+              redirect(base_url('admin/pegawai_read'));
           }else{
        echo "QUERY SQL ERROR";
       }
@@ -1285,15 +1282,15 @@ public function pegawai_read()
   }
   
   
-  public function kelpeg2()
+  public function kelpeg_read()
   {
    $id = $this->session->userdata('id_admin');
    $x = array('judul' =>':: Data Keluarga Pegawai ::', 
               'data'=>$this->db->get_where('kelpeg', array('id_admin' => $id))->result_array()); 
-   tpl('admin/kelpeg/kelpeg2',$x);
+   tpl('admin/kelpeg/kelpeg_read',$x);
   }
 
-  public function kelpeg2_tambah()
+  public function kelpegread_tambah()
   {
   $x = array('judul'        => 'Tambah Data Keluarga Pegawai' ,
               'aksi'        => 'tambah',
@@ -1391,16 +1388,16 @@ public function pegawai_read()
                Data Berhasil Di Ditambahkan.
               </div>';
     $this->session->set_flashdata('pesan',$pesan);
-    redirect(base_url('admin/kelpeg/kelpeg2'));
+    redirect(base_url('admin/kelpeg/kelpeg'));
       }else{
        echo "ERROR input Data";
       }
     }else{
-     tpl('admin/kelpeg/kelpegg2_form',$x);
+     tpl('admin/kelpeg/kelpeg2_form',$x);
     }
   }
     
-  public function kelpeg2_edit($id='')
+  public function kelpegread_edit($id='')
   {
   $sql=$this->db->get_where('kelpeg',array('id_kelpeg'=>$id))->row_array(); 
   $x = array('judul'        =>'Edit Data Keluarga Pegawai' ,
@@ -1499,16 +1496,16 @@ public function pegawai_read()
                Data Berhasil Di Diedit.
               </div>';
     $this->session->set_flashdata('pesan',$pesan);
-    redirect(base_url('admin/kelpeg2'));
+    redirect(base_url('admin/kelpeg_read'));
       }else{
        echo "ERROR input Data";
       }
     }else{
-     tpl('admin/kelpeg/kelpegg2_form',$x);
+     tpl('admin/kelpeg/kelpegread2_form',$x);
     }
   }
   
-  public function kelpeg2_detail($id=''){
+  public function kelpegread_detail($id=''){
   $sql=$this->db->get_where('kelpeg',array('id_kelpeg'=>$id))->row_array(); 
   $x = array('judul'        =>'Detail Data Keluarga Pegawai' ,
               'aksi'        =>'detail',
@@ -1607,12 +1604,12 @@ public function pegawai_read()
                Data Berhasil Di Diedit.
               </div>';
     $this->session->set_flashdata('pesan',$pesan);
-    redirect(base_url('admin/kelpeg/kelpeg2'));
+    redirect(base_url('admin/kelpeg/kelpeg_read'));
       }else{
        echo "ERROR input Data";
       }
     }else{
-     tpl('admin/kelpeg/kelpeg2_form',$x);
+     tpl('admin/kelpeg/kelpegread_form',$x);
     }
   }
   
@@ -1706,12 +1703,12 @@ public function pegawai_read()
                Data Berhasil Di Diedit.
               </div>';
     $this->session->set_flashdata('pesan',$pesan);
-    redirect(base_url('admin/pendidikan/pendidikan_read'));
+    redirect(base_url('admin/pendidikan_read'));
       }else{
        echo "ERROR input Data";
       }
     }else{
-     tpl('admin/pendidikan/pendidikan_form',$x);
+     tpl('admin/pendidikan/pendidikanread_form',$x);
     }
   }
 
@@ -1831,12 +1828,12 @@ public function diklat_tambah()
                Data Berhasil Di Ditambahkan.
               </div>';
     $this->session->set_flashdata('pesan',$pesan);
-    redirect(base_url('admin/diklat/diklatstruktural_read'));
+    redirect(base_url('admin/diklat/diklatstruktural'));
       }else{
        echo "ERROR input Data";
       }
     }else{
-     tpl('admin/diklat/diklatstruktural_form',$x);
+     tpl('admin/diklat/diklatstruktural2_form',$x);
     }
   }
     	
@@ -1931,12 +1928,12 @@ public function diklat_tambah()
                Data Berhasil Di Diedit.
               </div>';
     $this->session->set_flashdata('pesan',$pesan);
-    redirect(base_url('admin/diklat/diklatstruktural_read'));
+    redirect(base_url('admin/diklatstruktural_read'));
       }else{
        echo "ERROR input Data";
       }
     }else{
-     tpl('admin/diklat/diklatstruktural_form',$x);
+     tpl('admin/diklat/diklatstrukturalread2_form',$x);
     }
   }
 
@@ -2037,7 +2034,7 @@ public function diklat_tambah()
        echo "ERROR input Data";
       }
     }else{
-     tpl('admin/diklat/diklatstruktural_read_form',$x);
+     tpl('admin/diklat/diklatstruktural_form',$x);
     }
   }
 

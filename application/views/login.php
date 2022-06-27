@@ -44,15 +44,16 @@
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
+	  <div class="col-xs-4"></div>
         <div class="col-xs-4">
           <button type="submit" class="btn btn-primary btn-block btn-user" name="login">Login</button>
         </div>
-        <div class="col-xs-8">
-          <a href="https://google.com" class="btn btn-google btn-user btn-block">
-            <i class="fa fa-google"></i> Login with Google
-          </a>
-      </div>
-    </form>
+	</div>
+	</br>
+	<div class="callout callout-danger">
+        <p><center> Mohon Hubungi Admin Untuk Mendapatkan Username dan Password</center></p>
+	</div>
+	</form>
   </div>
 </div>
 

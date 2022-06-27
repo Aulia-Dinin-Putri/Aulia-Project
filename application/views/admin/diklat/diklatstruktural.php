@@ -18,7 +18,7 @@
         <th>DiklatII</th>
         <th>DiklatIII</th>
         <th>DiklatIV</th>
-        <th>Aksi</th>
+        <th width="20%" class= "text-center">Aksi</th>
 		</tr>
 		</thead>
     <tbody>
@@ -32,7 +32,7 @@
             <td><?= $admin['diklatIII'] ?></td>
             <td><?= $admin['diklatIV'] ?></td>
             <td>
-                <a href="<?= base_url('admin/diklat_detail/'.$admin['id_diklatstruktural']) ?>" class="btn btn-success"><i class="fa fa-search-plus"></i> Detail Diklat Struktural</a>
+                <a href="<?= base_url('admin/diklat_detail/'.$admin['id_diklatstruktural']) ?>" class="btn btn-success"><i class="fa fa-search-plus"></i> Detail Diklat</a>
                 <a href="<?= base_url('admin/diklat_hapus/'.$admin['id_diklatstruktural']) ?>" class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</a>
             </td>
         </tr>

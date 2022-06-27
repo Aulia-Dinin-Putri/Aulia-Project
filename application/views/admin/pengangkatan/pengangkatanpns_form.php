@@ -1,17 +1,7 @@
 <table class="table table-reposive">
-	<form action="<?= base_url() ?>admin/pengangkatanpns_tambah" method="POST" enctype="multipart/form-data">
+	<form action="" method="POST">
 	<tr><th>Tanggal</th><td><input type="date" name="tgl_sk" class="form-control" value="<?= $tgl_sk ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" required=""></td><th class="text-danger" >***</th></tr>
-	<tr><th>Bukti Pengangkatan</th><td>
-	<?php 
-      if($aksi == "Edit"){
-        echo '<img src="'.base_url('template/data/'.$bukti).'" class="img-responsive" style="width:200px;height:200px">';
-      }else{
-
-      }
-	?>
-<input type="file" name="gambar" value="<?= $bukti ?>" class="form-control" required="">
-</td><th class="text-danger">***</th></tr>
 	<tr><th>Nomor Surat Keputusan</th><td><input type="text" name="no_sk" class="form-control" value="<?= $no_sk ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Pejabat yang menetapkan</th><td><select class="form-control" name="pejabat_ygmenetapkan" required="">
 	                          <option value="Bupati Jombang">Bupati Jombang</option>
@@ -76,7 +66,17 @@
 	<tr><th>Suket Kesehatan</th><td><input type="text" name="suket_kesehatan" class="form-control" value="<?= $suket_kesehatan ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>STTPL</th><td><input type="text" name="sttpl" class="form-control" value="<?= $sttpl ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Sumpah/Janji/PNS</th><td><input type="teks" name="sumpah_janji_pns" class="form-control" value="<?= $sumpah_janji_pns ?>" required=""></td><th class="text-danger" >***</th></tr>
-    <tr><td></td><td><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> &nbsp;&nbsp; <a href="http://localhost/simpeg_pupr/admin/pengangkatanpns_read" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></td></tr>
+    <tr><th>Bukti Pengangkatan</th><td>
+	<?php 
+      if($aksi == "Edit"){
+        echo '<img src="'.base_url('template/data/'.$bukti).'" class="img-responsive" style="width:200px;height:200px">';
+      }else{
+
+      }
+	?>
+<input type="file" name="gambar" value="<?= $bukti ?>" class="form-control" accept=".pdf" required="">
+</td><th class="text-danger">***</th></tr>
+	<tr><td></td><td><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> &nbsp;&nbsp; <a href="http://localhost/simpeg_pupr/admin/pengangkatanpns" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></td></tr>
 	</form>	 
 </table>
  

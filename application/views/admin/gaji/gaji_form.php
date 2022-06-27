@@ -25,7 +25,7 @@
 							  <option value="November">November</option>
 							  <option value="Desember">Desember</option>
 	</select></td><th class="text-danger" >***</th></tr>
-    <tr><td></td><th><input type="submit" name="kirim" value="Set Gaji" class="btn btn-primary"> <a href="http://localhost/simpeg_pupr/admin/gaji_read" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></th></tr>
+    <tr><td></td><th><input type="submit" name="kirim" value="Set Gaji" class="btn btn-primary"> <a href="http://localhost/simpeg_pupr/admin/gaji" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></th></tr>
     <tr><td></td><td>
 </table>
  </form>
