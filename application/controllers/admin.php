@@ -186,9 +186,7 @@ class Admin extends CI_controller
  
   public function pegawai()
   {
-   $this->db->select('pegawai.id_pegawai, pegawai.nama, pegawai.nip, pegawai.npwp, pegawai.nik, pegawai.gelar_kesarjanaan, pegawai.tempat, pegawai.tgl_lahir, pegawai.jk, 
-   pegawai.foto, pegawai.agama, pegawai.pendidikan, pegawai.status_kep, pegawai.alamat, pegawai.no_hp, pegawai.email, pegawai.goldar, pegawai.status_kawin, pegawai.tgl_pensiun,
-   pegawai.no_karpeg, pegawai.no_taspen, admin.nama AS nama_admin');
+   $this->db->select('*');
     $this->db->from('pegawai');
     $this->db->join('admin', 'pegawai.id_admin=admin.id_admin');
     $data_pegawai = $this->db->get();
@@ -274,17 +272,20 @@ public function gaji_tambah()
   public function gaji_edit($id='')
   {
   $sql=$this->db->get_where('penggajian',array('id_penggajian'=>$id))->row_array(); 
-  $x = array('judul'        =>'Edit Data Penggajian' ,
-              'aksi'        =>'tambah',
-        'nip'=>$sql['nip'],
+  $x = array(
+    'judul'        =>'Edit Data Penggajian' ,
+    'aksi'        =>'tambah',
+    'nip'=>$sql['nip'],
 		'nama'=>$sql['nama'],
 		'pejabat_ygmenetapkan'=>$sql['pejabat_ygmenetapkan'],
-        'nomor'=>$sql['nomor'],
+    'nomor'=>$sql['nomor'],
 		'tgl_surat'=>$sql['tgl_surat'],
 		'gaji_pokok'=>$sql['gaji_pokok'],
 		'tmt_kgb'=>$sql['tmt_kgb'],
 		'tahun'=>$sql['tahun'],
-        'bulan'=>$sql['bulan']); 
+    'bulan'=>$sql['bulan'],
+    'data_pegawai' => $this->db->query("SELECT * FROM admin WHERE level='user'")->result(),
+  ); 
     if(isset($_POST['kirim'])){
       $inputData=array(
         'nip'=>$this->input->post('nip'),
@@ -629,8 +630,7 @@ public function penghargaan()
 
 public function pengangkatancpns()
   {
-	$this->db->select('pengangkatancpns.id_angkat_cpns, pengangkatancpns.tgl_persetujuan_bakn, pengangkatancpns.nama, pengangkatancpns.foto, pengangkatancpns.no_nota_persetujuan_bakn, pengangkatancpns.pejabat_ygmenetapkan, pengangkatancpns.no_sk_cpns, pengangkatancpns.tgl_sk_cpns, pengangkatancpns.gaji, pengangkatancpns.ijazah, pengangkatancpns.ijazah_tahun, pengangkatancpns.gol_ruang,
-	pengangkatancpns.tmt_cpns, pengangkatancpns.tahun, pengangkatancpns.bulan, pengangkatancpns.jabatan, pengangkatancpns.opd, pengangkatancpns.tmt_spmt, pengangkatancpns.tahun_tambah_mk, pengangkatancpns.bulan_tambah_mk, admin.nama AS nama_admin');
+	$this->db->select('*');
     $this->db->from('pengangkatancpns');
     $this->db->join('admin', 'pengangkatancpns.id_admin=admin.id_admin');
     $data_pengangkatancpns = $this->db->get();
@@ -717,23 +717,17 @@ public function pengangkatancpns()
     
   public function pengangkatancpns_edit($id='')
   {
-    $this->db->select('pengangkatancpns.id_angkat_cpns, pengangkatancpns.tgl_persetujuan_bakn, pengangkatancpns.nama, pengangkatancpns.foto, pengangkatancpns.no_nota_persetujuan_bakn, pengangkatancpns.pejabat_ygmenetapkan, pengangkatancpns.no_sk_cpns, pengangkatancpns.tgl_sk_cpns, pengangkatancpns.gaji, pengangkatancpns.ijazah, pengangkatancpns.ijazah_tahun, pengangkatancpns.gol_ruang,
-	pengangkatancpns.tmt_cpns, pengangkatancpns.tahun, pengangkatancpns.bulan, pengangkatancpns.jabatan, pengangkatancpns.opd, pengangkatancpns.tmt_spmt, pengangkatancpns.tahun_tambah_mk, pengangkatancpns.bulan_tambah_mk, admin.nama AS nama_admin');
+    $this->db->select('*');
     $this->db->from('pengangkatancpns');
     $this->db->join('admin', 'pengangkatancpns.id_admin=admin.id_admin');
     $data = $this->db->get();
     $sql = $data->row_array();
-    if ($sql['nama'] == "") {
-      $nama = $sql['nama_admin'];
-    }else{
-      $nama = $sql['nama'];
-    }
 	
-	$x = array(
+	  $x = array(
       'judul'        =>'Edit Data Pengangkatan CPNS' ,
-      'aksi'        =>'edit',
+      'aksi'        =>'Edit',
       'tgl_persetujuan_bakn'=>$sql['tgl_persetujuan_bakn'],
-      'nama'=>$nama,
+      'nama'=> $sql['nama'],
       'foto'=>$sql['foto'],
       'no_nota_persetujuan_bakn'=>$sql['no_nota_persetujuan_bakn'],
       'pejabat_ygmenetapkan'=>$sql['pejabat_ygmenetapkan'],
@@ -753,28 +747,25 @@ public function pengangkatancpns()
       'bulan_tambah_mk'=>$sql['bulan_tambah_mk']
     ); 
     if(isset($_POST['kirim'])){
-      
 		  if(empty($_FILES['gambar']['name'])){
         $inputData=array(
-          'tgl_persetujuan_bakn'=>$this->input->post('tgl_persetujuan_bakn'),
-          'nama'=>$this->input->post('nama'),
-          'foto'=>$this->upload->file_name,
-          'no_nota_persetujuan_bakn'=>$this->input->post('no_nota_persetujuan_bakn'),
-          'pejabat_ygmenetapkan'=>$this->input->post('pejabat_ygmenetapkan'),
+          // 'tgl_persetujuan_bakn'=>$this->input->post('tgl_persetujuan_bakn'),
+          // 'no_nota_persetujuan_bakn'=>$this->input->post('no_nota_persetujuan_bakn'),
+          // 'pejabat_ygmenetapkan'=>$this->input->post('pejabat_ygmenetapkan'),
           'no_sk_cpns'=>$this->input->post('no_sk_cpns'),
           'tgl_sk_cpns'=>$this->input->post('tgl_sk_cpns'),
           'gaji'=>$this->input->post('gaji'),
-          'ijazah'=>$this->input->post('ijazah'),
-          'ijazah_tahun'=>$this->input->post('ijazah_tahun'),
+          // 'ijazah'=>$this->input->post('ijazah'),
+          // 'ijazah_tahun'=>$this->input->post('ijazah_tahun'),
           'gol_ruang'=>$this->input->post('gol_ruang'),
           'tmt_cpns'=>$this->input->post('tmt_cpns'),
-          'tahun'=>$this->input->post('tahun'),
-          'bulan'=>$this->input->post('bulan'),
+          // 'tahun'=>$this->input->post('tahun'),
+          // 'bulan'=>$this->input->post('bulan'),
           'jabatan'=>$this->input->post('jabatan'),
           'opd'=>$this->input->post('opd'),
           'tmt_spmt'=>$this->input->post('tmt_spmt'),
-          'tahun_tambah_mk'=>$this->input->post('tahun_tambah_mk'),
-          'bulan_tambah_mk'=>$this->input->post('bulan_tambah_mk')
+          // 'tahun_tambah_mk'=>$this->input->post('tahun_tambah_mk'),
+          // 'bulan_tambah_mk'=>$this->input->post('bulan_tambah_mk')
         );
         $this->db->update('pengangkatancpns',$inputData,array('id_angkat_cpns'=>$id));
             $pesan='<div class="alert alert-success alert-dismissible">
@@ -792,26 +783,24 @@ public function pengangkatancpns()
           $this->upload->initialize($config);
           if($this->upload->do_upload('gambar')){
             $inputData=array(
-              'id_admin' => $this->session->userdata('id_admin'),
-              'tgl_persetujuan_bakn'=>$this->input->post('tgl_persetujuan_bakn'),
-              'nama'=>$this->input->post('nama'),
+              // 'tgl_persetujuan_bakn'=>$this->input->post('tgl_persetujuan_bakn'),
               'foto'=>$this->upload->file_name,
-              'no_nota_persetujuan_bakn'=>$this->input->post('no_nota_persetujuan_bakn'),
-              'pejabat_ygmenetapkan'=>$this->input->post('pejabat_ygmenetapkan'),
+              // 'no_nota_persetujuan_bakn'=>$this->input->post('no_nota_persetujuan_bakn'),
+              // 'pejabat_ygmenetapkan'=>$this->input->post('pejabat_ygmenetapkan'),
               'no_sk_cpns'=>$this->input->post('no_sk_cpns'),
               'tgl_sk_cpns'=>$this->input->post('tgl_sk_cpns'),
               'gaji'=>$this->input->post('gaji'),
-              'ijazah'=>$this->input->post('ijazah'),
-              'ijazah_tahun'=>$this->input->post('ijazah_tahun'),
+              // 'ijazah'=>$this->input->post('ijazah'),
+              // 'ijazah_tahun'=>$this->input->post('ijazah_tahun'),
               'gol_ruang'=>$this->input->post('gol_ruang'),
               'tmt_cpns'=>$this->input->post('tmt_cpns'),
-              'tahun'=>$this->input->post('tahun'),
-              'bulan'=>$this->input->post('bulan'),
+              // 'tahun'=>$this->input->post('tahun'),
+              // 'bulan'=>$this->input->post('bulan'),
               'jabatan'=>$this->input->post('jabatan'),
               'opd'=>$this->input->post('opd'),
               'tmt_spmt'=>$this->input->post('tmt_spmt'),
-              'tahun_tambah_mk'=>$this->input->post('tahun_tambah_mk'),
-              'bulan_tambah_mk'=>$this->input->post('bulan_tambah_mk')
+              // 'tahun_tambah_mk'=>$this->input->post('tahun_tambah_mk'),
+              // 'bulan_tambah_mk'=>$this->input->post('bulan_tambah_mk')
             );
             $cek = $this->db->update('pengangkatancpns',$inputData,array('id_angkat_cpns'=>$id));
             if($cek){
@@ -878,9 +867,9 @@ public function pengangkatancpns()
                     Foto tidak terhapus.
                   </div>';
           $this->session->set_flashdata('pesan',$pesan);
-		  if ($this->session->userdata('level') == 'admin') {
-			redirect(base_url('admin/pengangkatancpns'));
-		}else{
+		    if ($this->session->userdata('level') == 'admin') {
+			    redirect(base_url('admin/pengangkatancpns'));
+		    }else{
           redirect(base_url('admin/pengangkatancpns'));
         }
       }
@@ -890,25 +879,22 @@ public function pengangkatancpns()
   //untuk menampilkan di level user = pengangkatancpns_read
   public function pengangkatancpns_read()
   {
-   $id = $this->session->userdata('id_admin');
-   
-   $this->db->select('pengangkatancpns.id_admin, pengangkatancpns.id_angkat_cpns, pengangkatancpns.tgl_persetujuan_bakn, pengangkatancpns.nama, pengangkatancpns.foto, pengangkatancpns.no_nota_persetujuan_bakn, pengangkatancpns.pejabat_ygmenetapkan, pengangkatancpns.no_sk_cpns, pengangkatancpns.tgl_sk_cpns, pengangkatancpns.gaji, pengangkatancpns.ijazah, pengangkatancpns.ijazah_tahun, pengangkatancpns.gol_ruang,
-	pengangkatancpns.tmt_cpns, pengangkatancpns.tahun, pengangkatancpns.bulan, pengangkatancpns.jabatan, pengangkatancpns.opd, pengangkatancpns.tmt_spmt, pengangkatancpns.tahun_tambah_mk, pengangkatancpns.bulan_tambah_mk, admin.nama AS nama_admin');
+    $id = $this->session->userdata('id_admin');
+    $this->db->select('*');
     $this->db->from('pengangkatancpns');
-	$this->db->where('pengangkatancpns.id_admin', $id);
     $this->db->join('admin', 'pengangkatancpns.id_admin=admin.id_admin');
+	  $this->db->where('pengangkatancpns.id_admin', $id);
     $data_pengangkatancpns = $this->db->get();
    
-   $x = array('judul' =>':: Data Pengangkatan Pegawai CPNS ::', 
+    $x = array('judul' =>':: Data Pengangkatan Pegawai CPNS ::', 
               'data'=>$data_pengangkatancpns ->result_array()); 
-   tpl('admin/pengangkatan/pengangkatancpns_read',$x);
+    tpl('admin/pengangkatan/pengangkatancpns_read',$x);
   }
   
   
   public function pengangkatanpns()
   {
-	$this->db->select('pengangkatanpns.id_angkat_pns, pengangkatanpns.tgl_sk, pengangkatanpns.nama, pengangkatanpns.bukti, pengangkatanpns.no_sk, pengangkatanpns.pejabat_ygmenetapkan, pengangkatanpns.gapok_sk, pengangkatanpns.pangkat_sk, pengangkatanpns.gol_ruang, pengangkatanpns.tmt_pns, pengangkatanpns.tahun, pengangkatanpns.bulan,
-	pengangkatanpns.suket_kesehatan, pengangkatanpns.sttpl, pengangkatanpns.sumpah_janji_pns, admin.nama AS nama_admin');
+	  $this->db->select('*');
     $this->db->from('pengangkatanpns');
     $this->db->join('admin', 'pengangkatanpns.id_admin=admin.id_admin');
     $data_pengangkatanpns = $this->db->get();
@@ -985,24 +971,20 @@ public function pengangkatancpns()
     
   public function pengangkatanpns_edit($id='')
   {
-    $this->db->select('pengangkatanpns.id_angkat_pns, pengangkatanpns.tgl_sk, pengangkatanpns.nama, pengangkatanpns.bukti, pengangkatanpns.no_sk, pengangkatanpns.pejabat_ygmenetapkan, pengangkatanpns.gapok_sk, pengangkatanpns.pangkat_sk, pengangkatanpns.gol_ruang, pengangkatanpns.tmt_pns, pengangkatanpns.tahun, pengangkatanpns.bulan,
-	pengangkatanpns.suket_kesehatan, pengangkatanpns.sttpl, pengangkatanpns.sumpah_janji_pns, admin.nama AS nama_admin');
+    $this->db->select('*');
     $this->db->from('pengangkatanpns');
     $this->db->join('admin', 'pengangkatanpns.id_admin=admin.id_admin');
+    $this->db->where('pengangkatanpns.id_angkat_pns', $id);
     $data = $this->db->get();
     $sql = $data->row_array();
-    if ($sql['nama'] == "") {
-      $nama = $sql['nama_admin'];
-    }else{
-      $nama = $sql['nama'];
-    }
 	
     $x = array(
       'id_angkat_pns' => $sql['id_angkat_pns'],
       'judul'        =>'Edit Data Pengangkatan PNS' ,
-      'aksi'        =>'edit',
+      'aksi'        =>'Edit',
+      'id'=>$sql['id_angkat_pns'],
       'tgl_sk'=>$sql['tgl_sk'],
-      'nama'=>$sql['nama'],
+      'nama'=> $sql['nama'],
       'bukti'=>$sql['bukti'],
       'no_sk'=>$sql['no_sk'],
       'pejabat_ygmenetapkan'=>$sql['pejabat_ygmenetapkan'],
@@ -1016,25 +998,24 @@ public function pengangkatancpns()
       'sttpl'=>$sql['sttpl'],
       'sumpah_janji_pns'=>$sql['sumpah_janji_pns']
     ); 
+
     if(isset($_POST['kirim'])){
-	 if(empty($_FILES['gambar']['name'])){
-        $inputData=array(
-          'tgl_sk'=>$this->input->post('tgl_sk'),
-          'nama'=>$this->input->post('nama'),
-          'bukti'=>$this->upload->file_name,
-          'no_sk'=>$this->input->post('no_sk'),
-          'pejabat_ygmenetapkan'=>$this->input->post('pejabat_ygmenetapkan'),
-          'gapok_sk'=>$this->input->post('gapok_sk'),
-          'pangkat_sk'=>$this->input->post('pangkat_sk'),
-          'gol_ruang'=>$this->input->post('gol_ruang'),
-          'tmt_pns'=>$this->input->post('tmt_pns'),
-          'tahun'=>$this->input->post('tahun'),
-          'bulan'=>$this->input->post('bulan'),
-          'suket_kesehatan'=>$this->input->post('suket_kesehatan'),
-          'sttpl'=>$this->input->post('sttpl'),
-          'sumpah_janji_pns'=>$this->input->post('sumpah_janji_pns')
-        );
-        $this->db->update('pengangkatanpns',$inputData,array('id_angkat_pns'=>$id));
+      if(empty($_FILES['gambar']['name'])){
+          $inputData=array(
+            'tgl_sk'=>$this->input->post('tgl_sk'),
+            'no_sk'=>$this->input->post('no_sk'),
+            'pejabat_ygmenetapkan'=>$this->input->post('pejabat_ygmenetapkan'),
+            'gapok_sk'=>$this->input->post('gapok_sk'),
+            'pangkat_sk'=>$this->input->post('pangkat_sk'),
+            'gol_ruang'=>$this->input->post('gol_ruang'),
+            'tmt_pns'=>$this->input->post('tmt_pns'),
+            'tahun'=>$this->input->post('tahun'),
+            'bulan'=>$this->input->post('bulan'),
+            'suket_kesehatan'=>$this->input->post('suket_kesehatan'),
+            'sttpl'=>$this->input->post('sttpl'),
+            'sumpah_janji_pns'=>$this->input->post('sumpah_janji_pns')
+          );
+          $this->db->update('pengangkatanpns',$inputData,array('id_angkat_pns'=>$id));
           $pesan='<div class="alert alert-success alert-dismissible">
                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                   <h4><i class="icon fa fa-check"></i> Success!</h4>
@@ -1042,46 +1023,45 @@ public function pengangkatancpns()
                 </div>';
           $this->session->set_flashdata('pesan',$pesan);
           redirect(base_url('admin/pengangkatanpns_read'));
-		}else{
-          $config['upload_path'] = './template/data/'; 
-          $config['allowed_types'] = 'bmp|jpg|png|pdf';  
-          $config['file_name'] = 'file_'.time();  
-          $this->load->library('upload', $config);
-          $this->upload->initialize($config);
-		  if($this->upload->do_upload('gambar')){
-            $inputData=array(
-			'id_admin' => $this->session->userdata('id_admin'),
-			'tgl_sk'=>$this->input->post('tgl_sk'),
-			'nama'=>$this->input->post('nama'),
-			'bukti'=>$this->upload->file_name,
-			'no_sk'=>$this->input->post('no_sk'),
-			'pejabat_ygmenetapkan'=>$this->input->post('pejabat_ygmenetapkan'),
-			'gapok_sk'=>$this->input->post('gapok_sk'),
-			'pangkat_sk'=>$this->input->post('pangkat_sk'),
-			'gol_ruang'=>$this->input->post('gol_ruang'),
-			'tmt_pns'=>$this->input->post('tmt_pns'),
-			'tahun'=>$this->input->post('tahun'),
-			'bulan'=>$this->input->post('bulan'),
-			'suket_kesehatan'=>$this->input->post('suket_kesehatan'),
-			'sttpl'=>$this->input->post('sttpl'),
-			'sumpah_janji_pns'=>$this->input->post('sumpah_janji_pns')
-			);
-			$cek = $this->db->update('pengangkatanpns',$inputData,array('id_angkat_pns'=>$id));
-            if($cek){
-              unlink("./template/data/".$sql['bukti']."");
-              $pesan='<div class="alert alert-success alert-dismissible">
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                  <h4><i class="icon fa fa-check"></i> Success!</h4>
-                 Data Berhasil Di Diedit.
-                </div>';
-                $this->session->set_flashdata('pesan',$pesan);
-                redirect(base_url('admin/pengangkatanpns_read'));
-            }else{
-              echo "QUERY SQL ERROR";
-            }
+      }else{
+        $config['upload_path'] = './template/data/'; 
+        $config['allowed_types'] = 'bmp|jpg|png|pdf';  
+        $config['file_name'] = 'file_'.time();  
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+        if($this->upload->do_upload('gambar')){
+          $inputData=array(
+            'id_admin' => $this->session->userdata('id_admin'),
+            'tgl_sk'=>$this->input->post('tgl_sk'),
+            'bukti' => $this->upload->file_name,
+            'no_sk'=>$this->input->post('no_sk'),
+            'pejabat_ygmenetapkan'=>$this->input->post('pejabat_ygmenetapkan'),
+            'gapok_sk'=>$this->input->post('gapok_sk'),
+            'pangkat_sk'=>$this->input->post('pangkat_sk'),
+            'gol_ruang'=>$this->input->post('gol_ruang'),
+            'tmt_pns'=>$this->input->post('tmt_pns'),
+            'tahun'=>$this->input->post('tahun'),
+            'bulan'=>$this->input->post('bulan'),
+            'suket_kesehatan'=>$this->input->post('suket_kesehatan'),
+            'sttpl'=>$this->input->post('sttpl'),
+            'sumpah_janji_pns'=>$this->input->post('sumpah_janji_pns')
+          );
+          $cek = $this->db->update('pengangkatanpns',$inputData,array('id_angkat_pns'=>$id));
+          if($cek){
+            unlink("./template/data/".$sql['bukti']."");
+            $pesan='<div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> Success!</h4>
+                Data Berhasil Di Diedit.
+              </div>';
+              $this->session->set_flashdata('pesan',$pesan);
+              redirect(base_url('admin/pengangkatanpns_read'));
           }else{
-            echo $this->upload->display_errors();
+            echo "QUERY SQL ERROR";
           }
+        }else{
+          echo $this->upload->display_errors();
+        }
       }
     }else{
       tpl('admin/pengangkatan/pengangkatanpns2_form',$x);
@@ -1134,16 +1114,23 @@ public function pengangkatancpns()
   //untuk menampilkan di level user = pengangkatanpns_read
   public function pengangkatanpns_read()
   {
-   $id = $this->session->userdata('id_admin');
-   $x = array('judul' =>':: Data Pengangkatan Pegawai PNS ::', 
-              'data'=>$this->db->get_where('pengangkatanpns', array('id_admin' => $id))->result_array()); 
-   tpl('admin/pengangkatan/pengangkatanpns_read',$x);
+    $id = $this->session->userdata('id_admin');
+    $this->db->select('*');
+    $this->db->from('pengangkatanpns');
+    $this->db->join('admin', 'pengangkatanpns.id_admin=admin.id_admin');
+    $this->db->where('pengangkatanpns.id_admin', $id);
+    $data = $this->db->get();
+    
+    $x = array('judul' =>':: Data Pengangkatan Pegawai PNS ::', 
+                'data'=> $data->result_array()
+              ); 
+    tpl('admin/pengangkatan/pengangkatanpns_read',$x);
   }
 
 
  public function kelpeg()
   {
-       $this->db->select('kelpeg.id_kelpeg, kelpeg.nama, kelpeg.nama_ayah, kelpeg.tempat_ayah, kelpeg.tgllahir_ayah, kelpeg.pekerjaan_ayah, kelpeg.nama_ibu, kelpeg.tempat_ibu, kelpeg.tgllahir_ibu, kelpeg.pekerjaan_ibu, kelpeg.nama_is, kelpeg.tempat_is, kelpeg.tgllahir_is, kelpeg.tgl_kawin, kelpeg.pend_akhir, kelpeg.pekerjaan_is, kelpeg.nip_is, kelpeg.pangkat, kelpeg.no_kk, kelpeg.nik_is, kelpeg.opd, kelpeg.nama_anak1, kelpeg.tempat_anak1, kelpeg.tgllahir_anak1, kelpeg.pekerjaan_anak1, kelpeg.status_anak1, kelpeg.pend_anak1, kelpeg.jk_anak1, admin.nama AS nama_admin');
+    $this->db->select('*');
     $this->db->from('kelpeg');
     $this->db->join('admin', 'kelpeg.id_admin=admin.id_admin');
     $data_kelpeg = $this->db->get();
@@ -1178,9 +1165,9 @@ public function menu_riwayat()
 public function pegawai_read()
 {   
     $id = $this->session->userdata('id_admin');
-    $this->db->select('pegawai.id_pegawai, pegawai.nama, pegawai.nip, pegawai.npwp, pegawai.nik, pegawai.gelar_kesarjanaan, pegawai.tempat, pegawai.tgl_lahir, pegawai.jk, 
+    $this->db->select('pegawai.id_pegawai, pegawai.nip, pegawai.npwp, pegawai.nik, pegawai.gelar_kesarjanaan, pegawai.tempat, pegawai.tgl_lahir, pegawai.jk, 
    pegawai.foto, pegawai.agama, pegawai.pendidikan, pegawai.status_kep, pegawai.alamat, pegawai.no_hp, pegawai.email, pegawai.goldar, pegawai.status_kawin, pegawai.tgl_pensiun,
-   pegawai.no_karpeg, pegawai.no_taspen, admin.nama AS nama_admin');
+   pegawai.no_karpeg, pegawai.no_taspen, admin.nama');
     $this->db->from('pegawai');
     $this->db->join('admin', 'pegawai.id_admin=admin.id_admin');
     $this->db->where('pegawai.id_admin', $id);
@@ -1304,36 +1291,39 @@ public function pegawai_read()
     if(isset($_POST['kirim'])){
       if(empty($_FILES['gambar']['name'])){
         $SQLinsert=array(
-    'foto'=>$this->upload->file_name,
-    'nip'=>$this->input->post('nip'),
-    'nama'=>$this->input->post('nama'),
-    'npwp'=>$this->input->post('npwp'),
-    'nik'=>$this->input->post('nik'),
-    'gelar_kesarjanaan'=>$this->input->post('gelar_kesarjanaan'),
-    'tempat'=>$this->input->post('tempat'),
-    'tgl_lahir'=>$this->input->post('tgl_lahir'),
-    'jk'=>$this->input->post('jk'),
-    'agama'=>$this->input->post('agama'),
-    'pendidikan'=>$this->input->post('pendidikan'),
-    'status_kep'=>$this->input->post('status_kep'),
-    'alamat'=>$this->input->post('alamat'),
-    'no_hp'=>$this->input->post('no_hp'),
-    'email'=>$this->input->post('email'),
-    'goldar'=>$this->input->post('goldar'),
-    'status_kawin'=>$this->input->post('status_kawin'),
-    'tgl_pensiun'=>$this->input->post('tgl_pensiun'),
-    'no_karpeg'=>$this->input->post('no_karpeg'),
-    'no_taspen'=>$this->input->post('no_taspen')
+          'nip'=>$this->input->post('nip'),
+          'nama'=>$this->input->post('nama'),
+          'npwp'=>$this->input->post('npwp'),
+          'nik'=>$this->input->post('nik'),
+          'gelar_kesarjanaan'=>$this->input->post('gelar_kesarjanaan'),
+          'tempat'=>$this->input->post('tempat'),
+          'tgl_lahir'=>$this->input->post('tgl_lahir'),
+          'jk'=>$this->input->post('jk'),
+          'agama'=>$this->input->post('agama'),
+          'pendidikan'=>$this->input->post('pendidikan'),
+          'status_kep'=>$this->input->post('status_kep'),
+          'alamat'=>$this->input->post('alamat'),
+          'no_hp'=>$this->input->post('no_hp'),
+          'email'=>$this->input->post('email'),
+          'goldar'=>$this->input->post('goldar'),
+          'status_kawin'=>$this->input->post('status_kawin'),
+          'tgl_pensiun'=>$this->input->post('tgl_pensiun'),
+          'no_karpeg'=>$this->input->post('no_karpeg'),
+          'no_taspen'=>$this->input->post('no_taspen')
         );
     
-      $this->db->update('pegawai',$SQLinsert,array('id_pegawai'=>$id));
+        $this->db->update('pegawai',$SQLinsert,array('id_pegawai'=>$id));
         $pesan='<div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                 <h4><i class="icon fa fa-check"></i> Success!</h4>
                Data Berhasil Di Diedit.
               </div>';
-    $this->session->set_flashdata('pesan',$pesan);
-    redirect(base_url('admin/pegawai/pegawai_read'));
+        $this->session->set_flashdata('pesan',$pesan);
+        if ($this->session->userdata('level') == 'admin') {
+          redirect(base_url('admin/pegawai/pegawai_read'));
+        }else{
+          redirect(base_url('admin/pegawai_read'));
+        }
       }else{
         $config['upload_path'] = './template/data/'; 
         $config['allowed_types'] = 'bmp|jpg|png';  
@@ -1342,27 +1332,27 @@ public function pegawai_read()
         $this->upload->initialize($config);
         if($this->upload->do_upload('gambar')){
           $SQLinsert=array(
-        'foto'=>$this->upload->file_name,
-        'nip'=>$this->input->post('nip'),
-        'nama'=>$this->input->post('nama'),
-        'npwp'=>$this->input->post('npwp'),
-        'nik'=>$this->input->post('nik'),
-        'gelar_kesarjanaan'=>$this->input->post('gelar_kesarjanaan'),
-        'tempat'=>$this->input->post('tempat'),
-        'tgl_lahir'=>$this->input->post('tgl_lahir'),
-        'jk'=>$this->input->post('jk'),
-        'agama'=>$this->input->post('agama'),
-        'pendidikan'=>$this->input->post('pendidikan'),
-        'status_kep'=>$this->input->post('status_kep'),
-        'alamat'=>$this->input->post('alamat'),
-        'no_hp'=>$this->input->post('no_hp'),
-        'email'=>$this->input->post('email'),
-        'goldar'=>$this->input->post('goldar'),
-        'status_kawin'=>$this->input->post('status_kawin'),
-        'tgl_pensiun'=>$this->input->post('tgl_pensiun'),
-        'no_karpeg'=>$this->input->post('no_karpeg'),
-        'no_taspen'=>$this->input->post('no_taspen')
-        );
+            'foto'=>$this->upload->file_name,
+            'nip'=>$this->input->post('nip'),
+            'nama'=>$this->input->post('nama'),
+            'npwp'=>$this->input->post('npwp'),
+            'nik'=>$this->input->post('nik'),
+            'gelar_kesarjanaan'=>$this->input->post('gelar_kesarjanaan'),
+            'tempat'=>$this->input->post('tempat'),
+            'tgl_lahir'=>$this->input->post('tgl_lahir'),
+            'jk'=>$this->input->post('jk'),
+            'agama'=>$this->input->post('agama'),
+            'pendidikan'=>$this->input->post('pendidikan'),
+            'status_kep'=>$this->input->post('status_kep'),
+            'alamat'=>$this->input->post('alamat'),
+            'no_hp'=>$this->input->post('no_hp'),
+            'email'=>$this->input->post('email'),
+            'goldar'=>$this->input->post('goldar'),
+            'status_kawin'=>$this->input->post('status_kawin'),
+            'tgl_pensiun'=>$this->input->post('tgl_pensiun'),
+            'no_karpeg'=>$this->input->post('no_karpeg'),
+            'no_taspen'=>$this->input->post('no_taspen')
+          );
           $cek=$this->db->update('pegawai', $SQLinsert, array('id_pegawai' => $id));
           if($cek){
             $pesan='<div class="alert alert-success alert-dismissible">
@@ -1371,7 +1361,12 @@ public function pegawai_read()
                Data Berhasil Di Diedit.
               </div>';
               $this->session->set_flashdata('pesan',$pesan);
-              redirect(base_url('admin/pegawai_read'));
+              if ($this->session->userdata('level') == 'admin') {
+                redirect(base_url('admin/pegawai/pegawai_read'));
+              }else{
+                redirect(base_url('admin/pegawai_read'));
+              }
+              // redirect(base_url('admin/pegawai_read'));
           }else{
        echo "QUERY SQL ERROR";
       }
@@ -1386,7 +1381,12 @@ public function pegawai_read()
   
   public function pegawai_read_detail($id='')
   {
-  $sql=$this->db->get_where('pegawai',array('id_pegawai'=>$id))->row_array(); 
+    $this->db->select('*');
+    $this->db->from('pegawai');
+    $this->db->join('admin', 'pegawai.id_admin=admin.id_admin');
+    $this->db->where('pegawai.id_pegawai', $id);
+    $data = $this->db->get();
+    $sql = $data->row_array(); 
   $x = array('judul'        =>'Detail Data Pegawai' ,
               'aksi'        =>'detail',
     'foto'=>$sql['foto'],
@@ -1565,117 +1565,130 @@ public function pegawai_read()
     
   public function kelpegread_edit($id='')
   {
-  $sql=$this->db->get_where('kelpeg',array('id_kelpeg'=>$id))->row_array(); 
-  $x = array('judul'        =>'Edit Data Keluarga Pegawai' ,
-              'aksi'        =>'edit',
-	'nama'=>$sql['nama'],
-  'nama_ayah'=>$sql['nama_ayah'],
-	'tempat_ayah'=>$sql['tempat_ayah'],
-	'tgllahir_ayah'=>$sql['tgllahir_ayah'],
-	'pekerjaan_ayah'=>$sql['pekerjaan_ayah'],
-	'nama_ibu'=>$sql['nama_ibu'],
-	'tempat_ibu'=>$sql['tempat_ibu'],
-	'tgllahir_ibu'=>$sql['tgllahir_ibu'],
-	'pekerjaan_ibu'=>$sql['pekerjaan_ibu'],
-	'nama_is'=>$sql['nama_is'],
-	'tempat_is'=>$sql['tempat_is'],
-	'tgllahir_is'=>$sql['tgllahir_is'],
-	'tgl_kawin'=>$sql['tgl_kawin'],
-	'pend_akhir'=>$sql['pend_akhir'],
-	'pekerjaan_is'=>$sql['pekerjaan_is'],
-	'nip_is'=>$sql['nip_is'],
-	'pangkat'=>$sql['pangkat'],
-	'no_kk'=>$sql['no_kk'],
-	'nik_is'=>$sql['nik_is'],
-	'opd'=>$sql['opd'],
-	'nama_anak1'=>$sql['nama_anak1'],
-	'tempat_anak1'=>$sql['tempat_anak1'],
-	'tgllahir_anak1'=>$sql['tgllahir_anak1'],
-	'pekerjaan_anak1'=>$sql['pekerjaan_anak1'],
-	'status_anak1'=>$sql['status_anak1'],
-	'pend_anak1'=>$sql['pend_anak1'],
-	'jk_anak1'=>$sql['jk_anak1']
-	); 
+    $this->db->select('*');
+    $this->db->from('kelpeg');
+    $this->db->join('admin', 'kelpeg.id_admin=admin.id_admin');
+    $this->db->where('kelpeg.id_kelpeg', $id);
+    $data = $this->db->get();
+    $sql = $data->row_array();
+
+    $x = array(
+          'judul'        =>'Edit Data Keluarga Pegawai' ,
+          'aksi'        =>'edit',
+          'nama'=>$sql['nama'],
+          'nama_ayah'=>$sql['nama_ayah'],
+          'tempat_ayah'=>$sql['tempat_ayah'],
+          'tgllahir_ayah'=>$sql['tgllahir_ayah'],
+          'pekerjaan_ayah'=>$sql['pekerjaan_ayah'],
+          'nama_ibu'=>$sql['nama_ibu'],
+          'tempat_ibu'=>$sql['tempat_ibu'],
+          'tgllahir_ibu'=>$sql['tgllahir_ibu'],
+          'pekerjaan_ibu'=>$sql['pekerjaan_ibu'],
+          'nama_is'=>$sql['nama_is'],
+          'tempat_is'=>$sql['tempat_is'],
+          'tgllahir_is'=>$sql['tgllahir_is'],
+          'tgl_kawin'=>$sql['tgl_kawin'],
+          'pend_akhir'=>$sql['pend_akhir'],
+          'pekerjaan_is'=>$sql['pekerjaan_is'],
+          'nip_is'=>$sql['nip_is'],
+          'pangkat'=>$sql['pangkat'],
+          'no_kk'=>$sql['no_kk'],
+          'nik_is'=>$sql['nik_is'],
+          'opd'=>$sql['opd'],
+          'nama_anak1'=>$sql['nama_anak1'],
+          'tempat_anak1'=>$sql['tempat_anak1'],
+          'tgllahir_anak1'=>$sql['tgllahir_anak1'],
+          'pekerjaan_anak1'=>$sql['pekerjaan_anak1'],
+          'status_anak1'=>$sql['status_anak1'],
+          'pend_anak1'=>$sql['pend_anak1'],
+          'jk_anak1'=>$sql['jk_anak1']
+    ); 
+
     if(isset($_POST['kirim'])){
       $inputData=array(
-	  'nama'=>$this->input->post('nama'),
-	  'nama_ayah'=>$this->input->post('nama_ayah'),
-	  'tempat_ayah'=>$this->input->post('tempat_ayah'),
-	  'tgllahir_ayah'=>$this->input->post('tgllahir_ayah'),
-	  'pekerjaan_ayah'=>$this->input->post('pekerjaan_ayah'),
-	  'nama_ibu'=>$this->input->post('nama_ibu'),
-	  'tempat_ibu'=>$this->input->post('tempat_ibu'),
-	  'tgllahir_ibu'=>$this->input->post('tgllahir_ibu'),
-	  'pekerjaan_ibu'=>$this->input->post('pekerjaan_ibu'),
-	  'nama_is'=>$this->input->post('nama_is'),
-	  'tempat_is'=>$this->input->post('tempat_is'),
-	  'tgllahir_is'=>$this->input->post('tgllahir_is'),
-	  'tgl_kawin'=>$this->input->post('tgl_kawin'),
-	  'pend_akhir'=>$this->input->post('pend_akhir'),
-	  'pekerjaan_is'=>$this->input->post('pekerjaan_is'),
-	  'nip_is'=>$this->input->post('nip_is'),
-	  'pangkat'=>$this->input->post('pangkat'),
-	  'no_kk'=>$this->input->post('no_kk'),
-	  'nik_is'=>$this->input->post('nik_is'),
-	  'opd'=>$this->input->post('opd'),
-	  'nama_anak1'=>$this->input->post('nama_anak1'),
-	  'tempat_anak1'=>$this->input->post('tempat_anak1'),
-	  'tgllahir_anak1'=>$this->input->post('tgllahir_anak1'),
-	  'pekerjaan_anak1'=>$this->input->post('pekerjaan_anak1'),
-	  'status_anak1'=>$this->input->post('status_anak1'),
-	  'pend_anak1'=>$this->input->post('pend_anak1'),
-	  'jk_anak1'=>$this->input->post('jk_anak1')
+        'nama_ayah'=>$this->input->post('nama_ayah'),
+        'tempat_ayah'=>$this->input->post('tempat_ayah'),
+        'tgllahir_ayah'=>$this->input->post('tgllahir_ayah'),
+        'pekerjaan_ayah'=>$this->input->post('pekerjaan_ayah'),
+        'nama_ibu'=>$this->input->post('nama_ibu'),
+        'tempat_ibu'=>$this->input->post('tempat_ibu'),
+        'tgllahir_ibu'=>$this->input->post('tgllahir_ibu'),
+        'pekerjaan_ibu'=>$this->input->post('pekerjaan_ibu'),
+        'nama_is'=>$this->input->post('nama_is'),
+        'tempat_is'=>$this->input->post('tempat_is'),
+        'tgllahir_is'=>$this->input->post('tgllahir_is'),
+        'tgl_kawin'=>$this->input->post('tgl_kawin'),
+        'pend_akhir'=>$this->input->post('pend_akhir'),
+        'pekerjaan_is'=>$this->input->post('pekerjaan_is'),
+        'nip_is'=>$this->input->post('nip_is'),
+        'pangkat'=>$this->input->post('pangkat'),
+        'no_kk'=>$this->input->post('no_kk'),
+        'nik_is'=>$this->input->post('nik_is'),
+        'opd'=>$this->input->post('opd'),
+        'nama_anak1'=>$this->input->post('nama_anak1'),
+        'tempat_anak1'=>$this->input->post('tempat_anak1'),
+        'tgllahir_anak1'=>$this->input->post('tgllahir_anak1'),
+        'pekerjaan_anak1'=>$this->input->post('pekerjaan_anak1'),
+        'status_anak1'=>$this->input->post('status_anak1'),
+        'pend_anak1'=>$this->input->post('pend_anak1'),
+        'jk_anak1'=>$this->input->post('jk_anak1')
       );
       $cek=$this->db->update('kelpeg',$inputData,array('id_kelpeg'=>$id));
       if($cek){
         $pesan='<div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                 <h4><i class="icon fa fa-check"></i> Success!</h4>
-               Data Berhasil Di Diedit.
+              Data Berhasil Di Diedit.
               </div>';
-    $this->session->set_flashdata('pesan',$pesan);
-    redirect(base_url('admin/kelpeg_read'));
+        $this->session->set_flashdata('pesan',$pesan);
+        redirect(base_url('admin/kelpeg_read'));
       }else{
-       echo "ERROR input Data";
+        echo "ERROR input Data";
       }
     }else{
-     tpl('admin/kelpeg/kelpegread2_form',$x);
+      tpl('admin/kelpeg/kelpegread2_form',$x);
     }
   }
   
   public function kelpegread_detail($id=''){
-  $sql=$this->db->get_where('kelpeg',array('id_kelpeg'=>$id))->row_array(); 
-  $x = array('judul'        =>'Detail Data Keluarga Pegawai' ,
-              'aksi'        =>'detail',
+    $this->db->select('*');
+    $this->db->from('kelpeg');
+    $this->db->join('admin', 'kelpeg.id_admin=admin.id_admin');
+    $this->db->where('kelpeg.id_kelpeg', $id);
+    $data = $this->db->get();
 
-	'nama'=>$sql['nama'],
-    'nama_ayah'=>$sql['nama_ayah'],
-	'tempat_ayah'=>$sql['tempat_ayah'],
-	'tgllahir_ayah'=>$sql['tgllahir_ayah'],
-	'pekerjaan_ayah'=>$sql['pekerjaan_ayah'],
-	'nama_ibu'=>$sql['nama_ibu'],
-	'tempat_ibu'=>$sql['tempat_ibu'],
-	'tgllahir_ibu'=>$sql['tgllahir_ibu'],
-	'pekerjaan_ibu'=>$sql['pekerjaan_ibu'],
-	'nama_is'=>$sql['nama_is'],
-	'tempat_is'=>$sql['tempat_is'],
-	'tgllahir_is'=>$sql['tgllahir_is'],
-	'tgl_kawin'=>$sql['tgl_kawin'],
-	'pend_akhir'=>$sql['pend_akhir'],
-	'pekerjaan_is'=>$sql['pekerjaan_is'],
-	'nip_is'=>$sql['nip_is'],
-	'pangkat'=>$sql['pangkat'],
-	'no_kk'=>$sql['no_kk'],
-	'nik_is'=>$sql['nik_is'],
-	'opd'=>$sql['opd'],
-	'nama_anak1'=>$sql['nama_anak1'],
-	'tempat_anak1'=>$sql['tempat_anak1'],
-	'tgllahir_anak1'=>$sql['tgllahir_anak1'],
-	'pekerjaan_anak1'=>$sql['pekerjaan_anak1'],
-	'status_anak1'=>$sql['status_anak1'],
-	'pend_anak1'=>$sql['pend_anak1'],
-	'jk_anak1'=>$sql['jk_anak1']
-	); 
+    $sql=$data->row_array(); 
+    $x = array(
+      'judul'        =>'Detail Data Keluarga Pegawai' ,
+      'aksi'        =>'detail',
+      'nama'=>$sql['nama'],
+      'nama_ayah'=>$sql['nama_ayah'],
+      'tempat_ayah'=>$sql['tempat_ayah'],
+      'tgllahir_ayah'=>$sql['tgllahir_ayah'],
+      'pekerjaan_ayah'=>$sql['pekerjaan_ayah'],
+      'nama_ibu'=>$sql['nama_ibu'],
+      'tempat_ibu'=>$sql['tempat_ibu'],
+      'tgllahir_ibu'=>$sql['tgllahir_ibu'],
+      'pekerjaan_ibu'=>$sql['pekerjaan_ibu'],
+      'nama_is'=>$sql['nama_is'],
+      'tempat_is'=>$sql['tempat_is'],
+      'tgllahir_is'=>$sql['tgllahir_is'],
+      'tgl_kawin'=>$sql['tgl_kawin'],
+      'pend_akhir'=>$sql['pend_akhir'],
+      'pekerjaan_is'=>$sql['pekerjaan_is'],
+      'nip_is'=>$sql['nip_is'],
+      'pangkat'=>$sql['pangkat'],
+      'no_kk'=>$sql['no_kk'],
+      'nik_is'=>$sql['nik_is'],
+      'opd'=>$sql['opd'],
+      'nama_anak1'=>$sql['nama_anak1'],
+      'tempat_anak1'=>$sql['tempat_anak1'],
+      'tgllahir_anak1'=>$sql['tgllahir_anak1'],
+      'pekerjaan_anak1'=>$sql['pekerjaan_anak1'],
+      'status_anak1'=>$sql['status_anak1'],
+      'pend_anak1'=>$sql['pend_anak1'],
+      'jk_anak1'=>$sql['jk_anak1']
+    ); 
     if(isset($_POST['kirim'])){
       $inputData=array(
 	  'nama'=>$this->input->post('nama'),

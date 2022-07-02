@@ -1,5 +1,5 @@
 <table class="table table-responsive">
-	<form action="" method="POST">
+	<form action="" method="POST" enctype="multipart/form-data">
 	<!-- <tr><th>Tanggal Persetujuan BAKN</th><td><input type="date" name="tgl_persetujuan_bakn" class="form-control" value="<?= $tgl_persetujuan_bakn ?>" required=""></td><th class="text-danger" >***</th></tr> -->
 	
 	<!-- <tr><th>Nomor Nota Persetujuan BAKN</th><td><input type="text" name="no_nota_persetujuan_bakn" class="form-control" value="<?= $no_nota_persetujuan_bakn ?>" required=""></td><th class="text-danger" >***</th></tr>
@@ -74,12 +74,12 @@
 	<tr><th>Bukti Pengangkatan</th><td>
 	<?php 
       if($aksi == "Edit"){
-        echo '<img src="'.base_url('template/data/'.$foto).'" class="img-responsive" style="width:200px;height:200px">';
+        echo ' <input type="file" name="gambar" value="<?= $foto ?>" class="form-control" accept=".pdf" > ';
       }else{
-
+		echo '<input type="file" name="gambar" value="<?= $foto ?>" class="form-control" accept=".pdf" required="">';
       }
 	?>
-<input type="file" name="gambar" value="<?= $foto ?>" class="form-control" accept=".pdf" required="">
+
 </td><th class="text-danger">***</th></tr>
     <tr><td></td><td><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> &nbsp;&nbsp; <a href="<?= base_url('admin/pengangkatancpns_read') ?>" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></td></tr>
 	</form>	 

@@ -1,7 +1,7 @@
 <table class="table table-responsive">
-	<form action="" method="POST">
+	<form action="" method="POST" enctype="multipart/form-data">
 	<tr><th>Tanggal</th><td><input type="date" name="tgl_sk" class="form-control" value="<?= $tgl_sk ?>" required=""></td><th class="text-danger" >***</th></tr>
-	<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" required=""></td><th class="text-danger" >***</th></tr>
+	<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" readonly ></td><th class="text-danger" >***</th></tr>
 	<tr><th>Nomor Surat Keputusan</th><td><input type="text" name="no_sk" class="form-control" value="<?= $no_sk ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Pejabat yang menetapkan</th><td><select class="form-control" name="pejabat_ygmenetapkan" required="">
 	                          <option value="Bupati Jombang">Bupati Jombang</option>
@@ -69,12 +69,14 @@
     <tr><th>Bukti Pengangkatan</th><td>
 	<?php 
       if($aksi == "Edit"){
-        echo '<img src="'.base_url('template/data/'.$bukti).'" class="img-responsive" style="width:200px;height:200px">';
+        echo '<img src="'.base_url('template/data/'.$bukti).'" class="img-responsive" style="width:200px;height:200px">
+		<input type="file" name="gambar" value="<?= $bukti ?>" class="form-control" accept=".pdf">
+		';
       }else{
-
+		echo '<input type="file" name="gambar" value="<?= $bukti ?>" class="form-control" accept=".pdf" required="">';
       }
 	?>
-<input type="file" name="gambar" value="<?= $bukti ?>" class="form-control" accept=".pdf" required="">
+
 </td><th class="text-danger">***</th></tr>
 	<tr><td></td><td><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> &nbsp;&nbsp; <a href="<?= base_url('admin/pengangkatanpns_read') ?>" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></td></tr>
 	</form>	 

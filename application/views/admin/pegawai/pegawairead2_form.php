@@ -36,12 +36,14 @@
 <tr><th>Foto</th><td>
 	<?php 
       if($aksi == "Edit"){
-        echo '<img src="'.base_url('template/data/'.$foto).'" class="img-responsive" style="width:200px;height:200px">';
+        echo '<img src="'.base_url('template/data/'.$foto).'" class="img-responsive" style="width:200px;height:200px">
+		<input type="file" name="gambar" value="<?= $foto ?>" class="form-control" >
+		';
       }else{
-
+		echo '<input type="file" name="gambar" value="<?= $foto ?>" class="form-control" required="">';
       }
 	?>
-<input type="file" name="gambar" value="<?= $foto ?>" class="form-control" required="">
+
 </td><th class="text-danger">***</th></tr>
 
 <tr><th>Pendidikan</th><td><input type="text" name="pendidikan" value="<?= $pendidikan ?>" class="form-control" required=""></td><th class="text-danger">***</th></tr>
