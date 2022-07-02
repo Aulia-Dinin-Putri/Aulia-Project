@@ -1,5 +1,5 @@
-<table class="table table-reposive">
-	<form action="<?= base_url() ?>admin/pengangkatanpns_edit/<?= $id_angkat_pns ?>" method="POST" enctype="multipart/form-data">
+<table class="table table-responsive">
+	<form action="" method="POST">
 	<tr><th>Tanggal</th><td><input type="date" name="tgl_sk" class="form-control" value="<?= $tgl_sk ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Nomor Surat Keputusan</th><td><input type="text" name="no_sk" class="form-control" value="<?= $no_sk ?>" required=""></td><th class="text-danger" >***</th></tr>
@@ -76,7 +76,7 @@
 	?>
 <input type="file" name="gambar" value="<?= $bukti ?>" class="form-control" accept=".pdf" required="">
 </td><th class="text-danger">***</th></tr>
-	<tr><td></td><td><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> &nbsp;&nbsp; <a href="http://localhost/simpeg_pupr/admin/pengangkatanpns_read" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></td></tr>
+	<tr><td></td><td><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> &nbsp;&nbsp; <a href="<?= base_url('admin/pengangkatanpns_read') ?>" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></td></tr>
 	</form>	 
 </table>
  
