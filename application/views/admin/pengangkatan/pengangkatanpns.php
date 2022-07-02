@@ -1,12 +1,14 @@
 <td>
 	<a href="pengangkatanpns_tambah" class="btn btn-primary"><i class="fa fa-plus"></i>Tambah</a>
 	<button onClick="window.print();" class="btn btn-warning" ><i class="fa fa-print"></i>Print Data</button>
-	<a href="<?php echo base_url('excel42/export42_excel') ?>" class="btn btn-success" ><i class="fa fa-file-excel-o"></i> Excel</a>
+	<!-- <a href="<?php echo base_url('excel42/export42_excel') ?>" class="btn btn-success" ><i class="fa fa-file-excel-o"></i> Excel</a> -->
 </td>
 
 <br /><br /><br />
 <?= $this->session->flashdata('pesan') ?>
-<table id="example1" class="table table-bordered table-striped">
+    <div class="row">
+    <div class="col-12 table-responsive">
+        <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
 					<th>No</th>
@@ -19,6 +21,7 @@
         			<th>T.M.T PNS</th>
         			<th>Suket Kesehatan</th>
         			<th>STTPL</th>
+        			<th>Sumpah/Janji PNS</th>
 					<th>Bukti Pengangkatan</th>
                   <th>Aksi</th>
                 </tr>
@@ -27,7 +30,15 @@
                 <?php $no=1; foreach($data as $admin): ?>
                 <tr>
 					<td><?= $no ?></td>
-					<td><?= $admin['nama'] ?></td>
+					<td>
+							<?php
+								if ($admin['nama'] == "0") {
+									echo $admin['nama_admin'];
+								}else{
+									echo $admin['nama'];
+								}
+							?>
+				    </td>
 					<td><?= $admin['no_sk'] ?></td> 
 					<td><?= $admin['pejabat_ygmenetapkan'] ?></td>
         			<td>Rp.<?= number_format($admin['gapok_sk']) ?></td>
@@ -36,6 +47,7 @@
         			<td><?= $admin['tmt_pns'] ?></td>
         			<td><?= $admin['suket_kesehatan'] ?></td>
         			<td><?= $admin['sttpl'] ?></td>
+        			<td><?= $admin['sumpah_janji_pns'] ?></td>
 					<td>
 					<?php if($admin['bukti'] != ""){ ?>
 						<a href="<?= base_url('template/data/'.$admin['bukti']) ?>" class="btn btn-primary" download>Download <i class="fa fa-download"></i> </a> <a href="javascript:void(0)" target="_blank" class="btn btn-warning" onclick="window.open(`<?= base_url('template/data/'.$admin['bukti']) ?>`)">Preview <i class="fa fa-link"></i> </a>
@@ -49,9 +61,5 @@
 
                 <?php $no++; endforeach; ?>           
                 </tbody>
-</table>
-
-
- 
- 
- 
+        </table>
+    </div></div>
