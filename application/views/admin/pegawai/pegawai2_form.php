@@ -1,9 +1,31 @@
 <table class="table table-striped" style="border-collapse: collapse; width: 100%; margin: 0 auto;">
-<form action="" method="POST" enctype="multipart/form-data"> 
- 
+		<?php 
+		if($aksi == 'edit'){
+			echo '<form action="'. base_url() .'admin/pegawai_read_edit/'.$id_pegawai.'" method="POST" enctype="multipart/form-data">';
+		}else{
+			echo '<form action="'. base_url() .'admin/pegawai_read_tambah" method="POST" enctype="multipart/form-data">';
 
+			}
+		?>
+ 
+<tr>
+		<th>Nama Pegawai</th>
+		<td>
+			<div class="box-body">
+				<div class="row">
+					<div class="">
+						<select class="form-control select2" name="id_admin" style="width: 100%;" required="">
+							<option selected="selected" disabled>Cari Nama</option>
+							<?php foreach ($data_pegawai as $value) {
+								echo '<option value="'.$value->id_admin.'">'.$value->nama.'</option>';
+							} ?>
+						</select>
+					</div>
+				</div>
+			</div>
+		</td>
+</tr>
 <tr><th>Nip</th><td><input type="text" name="nip" value="<?= $nip ?>" class="form-control" required=""></td></tr>
-<tr><th>Nama</th><td><input type="text" name="nama" value="<?= $nama ?>" class="form-control" required=""></td><th class="text-danger">***</th></tr>
 <tr><th>NPWP</th><td><input type="text" name="npwp" value="<?= $npwp ?>" class="form-control" required=""></td><th class="text-danger">***</th></tr>
 <tr><th>Nik</th><td><input type="text" name="nik" value="<?= $nik ?>" class="form-control" required=""></td><th class="text-danger">***</th></tr>
 <tr><th>Gelar Sarjana</th><td><input type="text" name="gelar_kesarjanaan" value="<?= $gelar_kesarjanaan ?>" class="form-control" required=""></td><th class="text-danger">***</th></tr>
@@ -66,6 +88,6 @@
 
 <tr><th>No Taspen</th><td><input type="text" name="no_taspen" value="<?= $no_taspen ?>" class="form-control" required=""></td><th class="text-danger">*** Bagi PNS</th></tr>
 
-<tr><td></td><th><input type="submit" name="kirim" value="Sub" class="btn btn-primary"> <a href="http://localhost/simpeg_pupr/admin/pegawai" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></th></tr>
+<tr><td></td><th><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> <a href="<?= base_url('admin/pegawai') ?>" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></th></tr>
 </form>
 </table>
