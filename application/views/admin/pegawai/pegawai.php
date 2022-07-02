@@ -31,7 +31,7 @@
              <td><?= $no ?></td>
         	 <td><img src="<?= base_url('template/data/'.$admin['foto']) ?>" class="img-responsive" style="width: 100px;height: 100xp"></td>
              <td><?= $admin['nip'] ?></td> 
-             <td><?= $admin['nama'] ?></td> 
+             <td><?= $admin['nama'] ?></td>
              <td><?= $admin['jk'] ?></td>
              <td><?= $admin['agama'] ?></td>
              <td><?= $admin['pendidikan'] ?></td>
