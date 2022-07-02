@@ -1,7 +1,34 @@
 <table class="table table-reposive">
-	<form action="" method="POST">
-	<tr><th>Tanggal</th><td><input type="date" name="tgl_sk" class="form-control" value="<?= $tgl_sk ?>" required=""></td><th class="text-danger" >***</th></tr>
-	<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" required=""></td><th class="text-danger" >***</th></tr>
+	<form action="" method="POST" enctype="multipart/form-data">
+	<!--<tr><th>Tanggal</th><td><input type="date" name="tgl_sk" class="form-control" value="<?= $tgl_sk ?>" required=""></td><th class="text-danger" >***</th></tr> -->
+	
+	<?php 
+		if($aksi == 'edit'){
+			echo '<form action="'. base_url() .'admin/pengangkatanpns_edit/'.$id_angkat_pns.'" method="POST" enctype="multipart/form-data">';
+		}else{
+			echo '<form action="'. base_url() .'admin/pengangkatanpns_tambah" method="POST" enctype="multipart/form-data">';
+
+			}
+	?>
+	
+	<tr>
+		<th>Nama Pegawai</th>
+		<td>
+			<div class="box-body">
+				<div class="row">
+					<div class="">
+						<select class="form-control select2" name="id_admin" style="width: 100%;" required="">
+							<option selected="selected" disabled>Cari Nama</option>
+							<?php foreach ($data_pegawai as $value) {
+								echo '<option value="'.$value->id_admin.'">'.$value->nama.'</option>';
+							} ?>
+						</select>
+					</div>
+				</div>
+			</div>
+		</td>
+	</tr>
+	
 	<tr><th>Nomor Surat Keputusan</th><td><input type="text" name="no_sk" class="form-control" value="<?= $no_sk ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Pejabat yang menetapkan</th><td><select class="form-control" name="pejabat_ygmenetapkan" required="">
 	                          <option value="Bupati Jombang">Bupati Jombang</option>
@@ -47,7 +74,7 @@
 							  </select></td><th class="text-danger">***</th></tr>
 							  
 	<tr><th>T.M.T PNS</th><td><input type="date" name="tmt_pns" class="form-control" value="<?= $tmt_pns ?>" required=""></td><th class="text-danger" >***</th></tr>
-	<tr><th>Tahun</th><td><input type="text" name="tahun" class="form-control" value="<?= $tahun ?>" required=""></td><th class="text-danger" >***</th></tr>
+	<!--<tr><th>Tahun</th><td><input type="text" name="tahun" class="form-control" value="<?= $tahun ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Bulan</th><td><select class="form-control" name="bulan" required="">
 	                          <option value="Jan">Januari</option>
 	                          <option value="Febr">Februari</option>
@@ -61,7 +88,7 @@
 	                          <option value="Okt">Oktober</option>
 							  <option value="Nov">November</option>
 							  <option value="Des">Desember</option>
-							  </select></td><th class="text-danger">***</th></tr>
+							  </select></td><th class="text-danger">***</th></tr> -->
 							  
 	<tr><th>Suket Kesehatan</th><td><input type="text" name="suket_kesehatan" class="form-control" value="<?= $suket_kesehatan ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>STTPL</th><td><input type="text" name="sttpl" class="form-control" value="<?= $sttpl ?>" required=""></td><th class="text-danger" >***</th></tr>
@@ -76,8 +103,6 @@
 	?>
 <input type="file" name="gambar" value="<?= $bukti ?>" class="form-control" accept=".pdf" required="">
 </td><th class="text-danger">***</th></tr>
-	<tr><td></td><td><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> &nbsp;&nbsp; <a href="http://localhost/simpeg_pupr/admin/pengangkatanpns" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></td></tr>
+	<tr><td></td><td><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> &nbsp;&nbsp; <a href="<?= base_url('admin/pengangkatanpns') ?>" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></td></tr>
 	</form>	 
 </table>
- 
- 
