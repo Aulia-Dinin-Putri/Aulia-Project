@@ -27,7 +27,7 @@ class Admin extends CI_controller
 
   public function jabatan()
   {
-    $this->db->select('jabatan.id_jabatan, jabatan.nama, jabatan.nama_jabatan, jabatan.eselon, jabatan.tmt_jabatan, admin.nama AS nama_admin');
+    $this->db->select('*');
     $this->db->from('jabatan');
     $this->db->join('admin', 'jabatan.id_admin=admin.id_admin');
     $data_jabatan = $this->db->get();
@@ -49,7 +49,6 @@ class Admin extends CI_controller
     if(isset($_POST['kirim'])){
       $inputData=array(
         'id_admin'=>$this->input->post('id_admin'),
-        'nama' => "0",
 		'nama_jabatan'=>$this->input->post('nama_jabatan'),
         'eselon'    =>$this->input->post('eselon'),
         'tmt_jabatan'  =>$this->input->post('tmt_jabatan'));
@@ -80,8 +79,7 @@ class Admin extends CI_controller
         'tmt_jabatan'   => ""); 
     if(isset($_POST['kirim'])){
       $inputData=array(
-        'id_admin'=>$this->input->post('id_admin'),
-        'nama'=>$this->input->post('nama_pegawai'),
+        'id_admin'=> $this->session->userdata('id_admin'),
 		'nama_jabatan'=>$this->input->post('nama_jabatan'),
         'eselon'=>$this->input->post('eselon'),
         'tmt_jabatan'=>$this->input->post('tmt_jabatan'));
@@ -104,27 +102,21 @@ class Admin extends CI_controller
    
   public function jabatan_edit($id='')
   {
-  $this->db->select('jabatan.id_jabatan, jabatan.nama, jabatan.nama_jabatan, jabatan.eselon, jabatan.tmt_jabatan, admin.nama AS nama_admin');
+  $this->db->select('*');
     $this->db->from('jabatan');
-    $this->db->where('jabatan.id_jabatan', $id);
     $this->db->join('admin', 'jabatan.id_admin=admin.id_admin');
+    $this->db->where('jabatan.id_jabatan', $id);
     $data = $this->db->get();
     $sql = $data->row_array();
-    if ($sql['nama'] == "") {
-      $nama = $sql['nama_admin'];
-    }else{
-      $nama = $sql['nama'];
-    }
 
   $x = array('judul'        =>'Tambah Data Jabatan' ,
               'aksi'        =>'tambah',
-        'nama' => $nama,
+        'nama' => $sql['nama'],
 		'nama_jabatan'=>$sql['nama_jabatan'],
         'eselon'    =>$sql['eselon'],
         'tmt_jabatan'         =>$sql['tmt_jabatan']); 
     if(isset($_POST['kirim'])){
       $inputData=array(
-        'nama'=>$this->input->post('nama'),
 		'nama_jabatan'=>$this->input->post('nama_jabatan'),
         'eselon'    =>$this->input->post('eselon'),
         'tmt_jabatan'         =>$this->input->post('tmt_jabatan'));
@@ -173,10 +165,10 @@ class Admin extends CI_controller
   {
    $id = $this->session->userdata('id_admin');
    
-   $this->db->select('jabatan.id_jabatan, jabatan.nama, jabatan.nama_jabatan, jabatan.eselon, jabatan.tmt_jabatan, admin.nama AS nama_admin');
+   $this->db->select('*');
     $this->db->from('jabatan');
-    $this->db->where('jabatan.id_admin', $id);
     $this->db->join('admin', 'jabatan.id_admin=admin.id_admin');
+    $this->db->where('jabatan.id_admin', $id);
     $data_jabatan = $this->db->get();
 
    $x = array('judul' =>':: Data Jabatan ::', 
@@ -675,7 +667,6 @@ public function pengangkatancpns()
         if($this->upload->do_upload('gambar')){
           $SQLinsert = array(
             'id_admin' => $this->input->post('id_admin'),
-            'nama' => "0",
             'tgl_persetujuan_bakn'=>$this->input->post('tgl_persetujuan_bakn'),
             'foto'=>$this->upload->file_name,
             'no_nota_persetujuan_bakn'=>$this->input->post('no_nota_persetujuan_bakn'),
@@ -935,7 +926,6 @@ public function pengangkatancpns()
           $SQLinsert = array(
             'id_admin' => $this->input->post('id_admin'),
             'tgl_sk'=>$this->input->post('tgl_sk'),
-			'nama' => "0",
             'bukti'=>$this->upload->file_name,
             'no_sk'=>$this->input->post('no_sk'),
             'pejabat_ygmenetapkan'=>$this->input->post('pejabat_ygmenetapkan'),
@@ -1216,7 +1206,6 @@ public function pegawai_read()
           $SQLinsert=array(
         'id_admin'=>$this->input->post('id_admin'),
 		'nip'=>$this->input->post('nip'),
-        'nama'=>$this->input->post('nama'),
         'npwp'=>$this->input->post('npwp'),
     'nik'=>$this->input->post('nik'),
     'gelar_kesarjanaan'=>$this->input->post('gelar_kesarjanaan'),
@@ -1483,8 +1472,9 @@ public function pegawai_read()
 
   public function kelpegread_tambah()
   {
-  $x = array('judul'        => 'Tambah Data Keluarga Pegawai' ,
-              'aksi'        => 'tambah',
+    $x = array(
+      'judul'        => 'Tambah Data Keluarga Pegawai' ,
+      'aksi'        => 'tambah',
 			'nama'=>'',
 			'nama_ayah'=>'',
 			'tempat_ayah'=>'',
@@ -1513,39 +1503,38 @@ public function pegawai_read()
 			'pend_anak1'=>'',
 			'jk_anak1'=>'',
 			'data_pegawai' => $this->db->query("SELECT * FROM admin WHERE level='user'")->result()
-			); 
+		); 
     if(isset($_POST['kirim'])){
       $inputData=array(
-        'nama'=>"0",
-        'id_pegawai'=>"0",
-        'id_admin'=>$this->input->post('id_admin'),
-        'nama_ayah'=>$this->input->post('nama_ayah'),
-		'tempat_ayah'=>$this->input->post('tempat_ayah'),
-		'tgllahir_ayah'=>$this->input->post('tgllahir_ayah'),
-		'pekerjaan_ayah'=>$this->input->post('pekerjaan_ayah'),
-		'nama_ibu'=>$this->input->post('nama_ibu'),
-		'tempat_ibu'=>$this->input->post('tempat_ibu'),
-		'tgllahir_ibu'=>$this->input->post('tgllahir_ibu'),
-		'pekerjaan_ibu'=>$this->input->post('pekerjaan_ibu'),
-		'nama_is'=>$this->input->post('nama_is'),
-		'tempat_is'=>$this->input->post('tempat_is'),
-		'tgllahir_is'=>$this->input->post('tgllahir_is'),
-		'tgl_kawin'=>$this->input->post('tgl_kawin'),
-		'pend_akhir'=>$this->input->post('pend_akhir'),
-		'pekerjaan_is'=>$this->input->post('pekerjaan_is'),
-		'nip_is'=>$this->input->post('nip_is'),
-		'pangkat'=>$this->input->post('pangkat'),
-		'no_kk'=>$this->input->post('no_kk'),
-		'nik_is'=>$this->input->post('nik_is'),
-		'opd'=>$this->input->post('opd'),
-		'nama_anak1'=>$this->input->post('nama_anak1'),
-		'tempat_anak1'=>$this->input->post('tempat_anak1'),
-		'tgllahir_anak1'=>$this->input->post('tgllahir_anak1'),
-		'pekerjaan_anak1'=>$this->input->post('pekerjaan_anak1'),
-		'status_anak1'=>$this->input->post('status_anak1'),
-		'pend_anak1'=>$this->input->post('pend_anak1'),
-		'jk_anak1'=>$this->input->post('jk_anak1')
-        );
+        'id_pegawai' => "1",
+        'id_admin' => $this->input->post('id_admin'),
+        'nama_ayah' => $this->input->post('nama_ayah'),
+        'tempat_ayah'=>$this->input->post('tempat_ayah'),
+        'tgllahir_ayah'=>$this->input->post('tgllahir_ayah'),
+        'pekerjaan_ayah'=>$this->input->post('pekerjaan_ayah'),
+        'nama_ibu'=>$this->input->post('nama_ibu'),
+        'tempat_ibu'=>$this->input->post('tempat_ibu'),
+        'tgllahir_ibu'=>$this->input->post('tgllahir_ibu'),
+        'pekerjaan_ibu'=>$this->input->post('pekerjaan_ibu'),
+        'nama_is'=>$this->input->post('nama_is'),
+        'tempat_is'=>$this->input->post('tempat_is'),
+        'tgllahir_is'=>$this->input->post('tgllahir_is'),
+        'tgl_kawin'=>$this->input->post('tgl_kawin'),
+        'pend_akhir'=>$this->input->post('pend_akhir'),
+        'pekerjaan_is'=>$this->input->post('pekerjaan_is'),
+        'nip_is'=>$this->input->post('nip_is'),
+        'pangkat'=>$this->input->post('pangkat'),
+        'no_kk'=>$this->input->post('no_kk'),
+        'nik_is'=>$this->input->post('nik_is'),
+        'opd'=>$this->input->post('opd'),
+        'nama_anak1'=>$this->input->post('nama_anak1'),
+        'tempat_anak1'=>$this->input->post('tempat_anak1'),
+        'tgllahir_anak1'=>$this->input->post('tgllahir_anak1'),
+        'pekerjaan_anak1'=>$this->input->post('pekerjaan_anak1'),
+        'status_anak1'=>$this->input->post('status_anak1'),
+        'pend_anak1'=>$this->input->post('pend_anak1'),
+        'jk_anak1'=>$this->input->post('jk_anak1')
+      );
       $cek=$this->db->insert('kelpeg',$inputData);
       if($cek){
         $pesan='<div class="alert alert-success alert-dismissible">
@@ -1553,10 +1542,10 @@ public function pegawai_read()
                 <h4><i class="icon fa fa-check"></i> Success!</h4>
                Data Berhasil Di Ditambahkan.
               </div>';
-    $this->session->set_flashdata('pesan',$pesan);
-    redirect(base_url('admin/kelpeg'));
+        $this->session->set_flashdata('pesan',$pesan);
+        redirect(base_url('admin/kelpeg'));
       }else{
-       echo "ERROR input Data";
+        echo "ERROR input Data";
       }
     }else{
      tpl('admin/kelpeg/kelpeg2_form',$x);
@@ -1738,7 +1727,7 @@ public function pegawai_read()
   
   public function pendidikan()
   {
-    $this->db->select('pendidikan.id_pendidikan, pendidikan.nama, pendidikan.SD, pendidikan.SMP, pendidikan.SMA, pendidikan.D3, pendidikan.S1, pendidikan.S2, pendidikan.pend_akhir, admin.nama AS nama_admin');
+    $this->db->select('*');
     $this->db->from('pendidikan');
     $this->db->join('admin', 'pendidikan.id_admin=admin.id_admin');
     $data_pendidikan = $this->db->get();
@@ -1753,7 +1742,7 @@ public function pegawai_read()
   {
    $id = $this->session->userdata('id_admin');
 
-    $this->db->select('pendidikan.id_pendidikan, pendidikan.nama, pendidikan.SD, pendidikan.SMP, pendidikan.SMA, pendidikan.D3, pendidikan.S1, pendidikan.S2, pendidikan.pend_akhir, admin.nama, pegawai.nip');
+    $this->db->select('*');
     $this->db->from('pendidikan');
     $this->db->join('admin', 'pendidikan.id_admin=admin.id_admin');
     $this->db->join('pegawai', 'admin.id_admin=pegawai.id_admin');
@@ -1781,15 +1770,15 @@ public function pegawai_read()
     ); 
     if(isset($_POST['kirim'])){
       $inputData=array(
-            'id_admin' => $this->input->post('id_admin'),
-			'nama' => $this->input->post('nama'),
+        'id_admin' => $this->input->post('id_admin'),
     		'SD'=>$this->input->post('SD'),
     		'SMP'=>$this->input->post('SMP'),
     		'SMA'=>$this->input->post('SMA'),
     		'D3'=>$this->input->post('D3'),
     		'S1'=>$this->input->post('S1'),
         'S2'=>$this->input->post('S2'),
-        'pend_akhir'=>$this->input->post('pend_akhir'));
+        'pend_akhir'=>$this->input->post('pend_akhir')
+      );
       $cek=$this->db->insert('pendidikan',$inputData);
       if($cek){
         $pesan='<div class="alert alert-success alert-dismissible">
@@ -1886,8 +1875,13 @@ public function pegawai_read()
 // view diklat struktural
 public function diklatstruktural()
   {
+    $this->db->select('*');
+    $this->db->from('diklat_struktural');
+    $this->db->join('admin', 'diklat_struktural.id_admin=admin.id_admin');
+    $data = $this->db->get();
+
    $x = array('judul' =>'Data Riwayat Diklat Struktural', 
-              'data'=>$this->db->get('diklat_struktural')->result_array()); 
+              'data'=>$data->result_array()); 
    tpl('admin/diklat/diklatstruktural',$x);
   }
 
@@ -1909,10 +1903,10 @@ public function diklatstruktural_read()
 
 public function diklat_tambah()
   {
-  $x = array(
-        'judul'        => 'Tambah Data Riwayat Diklat Struktural' ,
-        'aksi'        => 'tambah',
-        'id_admin' => '',
+    $x = array(
+      'judul'        => 'Tambah Data Riwayat Diklat Struktural' ,
+      'aksi'        => 'tambah',
+      'id_admin' => '',
     	'nama_diklat'=>'',
     	'jam_diklat'=>'',
     	'tgl_diklat'=> '',
@@ -1921,19 +1915,34 @@ public function diklat_tambah()
     	'no_diklat'=> '',
     	'penyelenggara_diklat'=> '',
     	'tempat_diklat'=> '',
+      'data_pegawai' => $this->db->query("SELECT * FROM admin WHERE level='user'")->result()
     ); 
     if(isset($_POST['kirim'])){
+      if($this->session->userdata('level') == 'admin'){
         $inputData=array(
-            'id_admin' => $this->session->userdata('id_admin'),
-    		'nama_diklat'=>$this->input->post('nama_diklat'),
-    		'jam_diklat'=>$this->input->post('jam_diklat'),
-    		'tgl_diklat'=>$this->input->post('tgl_diklat'),
-    		'tahun_diklat'=>$this->input->post('tahun_diklat'),
-    		'angkatan_diklat'=>$this->input->post('angkatan_diklat'),
-    		'no_diklat'=>$this->input->post('no_diklat'),
-    		'penyelenggara_diklat'=>$this->input->post('penyelenggara_diklat'),
-    		'tempat_diklat'=>$this->input->post('tempat_diklat'),
-		);
+          'id_admin' => $this->input->post('id_admin'),
+          'nama_diklat'=>$this->input->post('nama_diklat'),
+          'jam_diklat'=>$this->input->post('jam_diklat'),
+          'tgl_diklat'=>$this->input->post('tgl_diklat'),
+          'tahun_diklat'=>$this->input->post('tahun_diklat'),
+          'angkatan_diklat'=>$this->input->post('angkatan_diklat'),
+          'no_diklat'=>$this->input->post('no_diklat'),
+          'penyelenggara_diklat'=>$this->input->post('penyelenggara_diklat'),
+          'tempat_diklat'=>$this->input->post('tempat_diklat'),
+		    );
+      }else{
+        $inputData=array(
+          'id_admin' => $this->session->userdata('id_admin'),
+          'nama_diklat'=>$this->input->post('nama_diklat'),
+          'jam_diklat'=>$this->input->post('jam_diklat'),
+          'tgl_diklat'=>$this->input->post('tgl_diklat'),
+          'tahun_diklat'=>$this->input->post('tahun_diklat'),
+          'angkatan_diklat'=>$this->input->post('angkatan_diklat'),
+          'no_diklat'=>$this->input->post('no_diklat'),
+          'penyelenggara_diklat'=>$this->input->post('penyelenggara_diklat'),
+          'tempat_diklat'=>$this->input->post('tempat_diklat'),
+		    );
+      }
       $cek=$this->db->insert('diklat_struktural',$inputData);
       if($cek){
         $pesan='<div class="alert alert-success alert-dismissible">
@@ -1943,7 +1952,7 @@ public function diklat_tambah()
               </div>';
         $this->session->set_flashdata('pesan',$pesan);
         if ($this->session->userdata('level') == 'admin') {
-            redirect(base_url('admin/diklat/diklatstruktural'));
+            redirect(base_url('admin/diklatstruktural'));
         }else{
             redirect(base_url('admin/diklatstruktural_read'));
         }
@@ -2001,7 +2010,7 @@ public function diklat_tambah()
               </div>';
         $this->session->set_flashdata('pesan',$pesan);
         if ($this->session->userdata('level') == 'admin') {
-            redirect(base_url('admin/diklat/diklatstruktural'));
+            redirect(base_url('admin/diklatstruktural'));
         }else{
             redirect(base_url('admin/diklatstruktural_read'));
         }
@@ -2012,88 +2021,59 @@ public function diklat_tambah()
 
   public function diklat_detail($id='')
   {
-  $sql=$this->db->get_where('diklat_struktural',array('id_diklatstruktural'=>$id))->row_array(); 
-  $x = array('judul'        =>'Detail Riwayat Data Diklat Struktural' ,
-              'aksi'        =>'detail',
-    'nip'=>$sql['nip'],
-    'nama'=>$sql['nama'],
-    'diklatI'=>$sql['diklatI'],
-    'jam_diklatI'=>$sql['jam_diklatI'],
-    'tgl_diklatI'=>$sql['tgl_diklatI'],
-    'tahun_diklatI'=>$sql['tahun_diklatI'],
-    'angkatan_diklatI'=>$sql['angkatan_diklatI'],
-    'no_diklatI'=>$sql['no_diklatI'],
-    'penyelenggara_diklatI'=>$sql['penyelenggara_diklatI'],
-    'tempat_diklatI'=>$sql['tempat_diklatI'],
-
-    'diklatII'=>$sql['diklatII'],
-    'jam_diklatII'=>$sql['jam_diklatII'],
-    'tgl_diklatII'=>$sql['tgl_diklatII'],
-    'tahun_diklatII'=>$sql['tahun_diklatII'],
-    'angkatan_diklatII'=>$sql['angkatan_diklatII'],
-    'no_diklatII'=>$sql['no_diklatII'],
-    'penyelenggara_diklatII'=>$sql['penyelenggara_diklatII'],
-    'tempat_diklatII'=>$sql['tempat_diklatII'],
-
-    'diklatIII'=>$sql['diklatIII'],
-    'jam_diklatIII'=>$sql['jam_diklatIII'],
-    'tgl_diklatIII'=>$sql['tgl_diklatIII'],
-    'tahun_diklatIII'=>$sql['tahun_diklatIII'],
-    'angkatan_diklatIII'=>$sql['angkatan_diklatIII'],
-    'no_diklatIII'=>$sql['no_diklatIII'],
-    'penyelenggara_diklatIII'=>$sql['penyelenggara_diklatIII'],
-    'tempat_diklatIII'=>$sql['tempat_diklatIII'],
-
-    'diklatIV'=>$sql['diklatIV'],
-    'jam_diklatIV'=>$sql['jam_diklatIV'],
-    'tgl_diklatIV'=>$sql['tgl_diklatIV'],
-    'tahun_diklatIV'=>$sql['tahun_diklatIV'],
-    'angkatan_diklatIV'=>$sql['angkatan_diklatIV'],
-    'no_diklatIV'=>$sql['no_diklatIV'],
-    'penyelenggara_diklatIV'=>$sql['penyelenggara_diklatIV'],
-    'tempat_diklatIV'=>$sql['tempat_diklatIV']
-  ); 
+    $this->db->select('*');
+    $this->db->from('diklat_struktural');
+    $this->db->join('admin', 'diklat_struktural.id_admin=admin.id_admin');
+    $this->db->join('pegawai', 'admin.id_admin=pegawai.id_admin');
+    $this->db->where('diklat_struktural.id_diklatstruktural', $id);
+    $data = $this->db->get();
+    $sql = $data->result_array(); 
+    $x = array(
+      'judul'        =>'Detail Riwayat Data Diklat Struktural' ,
+      'aksi'        =>'detail',
+      'data' => $sql
+    ); 
     if(isset($_POST['kirim'])){
       $inputData=array(
-    'nip'=>$this->input->post('nip'),
-    'nama'=>$this->input->post('nama'),
+        'nip'=>$this->input->post('nip'),
+        'nama'=>$this->input->post('nama'),
 
-    'diklatI'=>$this->input->post('diklatI'),
-    'jam_diklatI'=>$this->input->post('jam_diklatI'),
-    'tgl_diklatI'=>$this->input->post('tgl_diklatI'),
-    'tahun_diklatI'=>$this->input->post('tahun_diklatI'),
-    'angkatan_diklatI'=>$this->input->post('angkatan_diklatI'),
-    'no_diklatI'=>$this->input->post('no_diklatI'),
-    'penyelenggara_diklatI'=>$this->input->post('penyelenggara_diklatI'),
-    ' tempat_diklatI'=>$this->input->post(' tempat_diklatI'),
+        'diklatI'=>$this->input->post('diklatI'),
+        'jam_diklatI'=>$this->input->post('jam_diklatI'),
+        'tgl_diklatI'=>$this->input->post('tgl_diklatI'),
+        'tahun_diklatI'=>$this->input->post('tahun_diklatI'),
+        'angkatan_diklatI'=>$this->input->post('angkatan_diklatI'),
+        'no_diklatI'=>$this->input->post('no_diklatI'),
+        'penyelenggara_diklatI'=>$this->input->post('penyelenggara_diklatI'),
+        ' tempat_diklatI'=>$this->input->post(' tempat_diklatI'),
 
-    'diklatII'=>$this->input->post('diklatII'),
-    'jam_diklatII'=>$this->input->post('jam_diklatII'),
-    'tgl_diklatII'=>$this->input->post('tgl_diklatII'),
-    'tahun_diklatII'=>$this->input->post('tahun_diklatII'),
-    'angkatan_diklatII'=>$this->input->post('angkatan_diklatII'),
-    'no_diklatII'=>$this->input->post('no_diklatII'),
-    'penyelenggara_diklatII'=>$this->input->post('penyelenggara_diklatII'),
-    ' tempat_diklatII'=>$this->input->post(' tempat_diklatII'),
+        'diklatII'=>$this->input->post('diklatII'),
+        'jam_diklatII'=>$this->input->post('jam_diklatII'),
+        'tgl_diklatII'=>$this->input->post('tgl_diklatII'),
+        'tahun_diklatII'=>$this->input->post('tahun_diklatII'),
+        'angkatan_diklatII'=>$this->input->post('angkatan_diklatII'),
+        'no_diklatII'=>$this->input->post('no_diklatII'),
+        'penyelenggara_diklatII'=>$this->input->post('penyelenggara_diklatII'),
+        ' tempat_diklatII'=>$this->input->post(' tempat_diklatII'),
 
-    'diklatIII'=>$this->input->post('diklatIII'),
-    'jam_diklatIII'=>$this->input->post('jam_diklatIII'),
-    'tgl_diklatIII'=>$this->input->post('tgl_diklatIII'),
-    'tahun_diklatIII'=>$this->input->post('tahun_diklatIII'),
-    'angkatan_diklatIII'=>$this->input->post('angkatan_diklatIII'),
-    'no_diklatIII'=>$this->input->post('no_diklatIII'),
-    'penyelenggara_diklatIII'=>$this->input->post('penyelenggara_diklatIII'),
-    ' tempat_diklatIII'=>$this->input->post(' tempat_diklatIII'),
+        'diklatIII'=>$this->input->post('diklatIII'),
+        'jam_diklatIII'=>$this->input->post('jam_diklatIII'),
+        'tgl_diklatIII'=>$this->input->post('tgl_diklatIII'),
+        'tahun_diklatIII'=>$this->input->post('tahun_diklatIII'),
+        'angkatan_diklatIII'=>$this->input->post('angkatan_diklatIII'),
+        'no_diklatIII'=>$this->input->post('no_diklatIII'),
+        'penyelenggara_diklatIII'=>$this->input->post('penyelenggara_diklatIII'),
+        ' tempat_diklatIII'=>$this->input->post(' tempat_diklatIII'),
 
-    'diklatIV'=>$this->input->post('diklatIV'),
-    'jam_diklatIV'=>$this->input->post('jam_diklatIV'),
-    'tgl_diklatIV'=>$this->input->post('tgl_diklatIV'),
-    'tahun_diklatIV'=>$this->input->post('tahun_diklatIV'),
-    'angkatan_diklatIV'=>$this->input->post('angkatan_diklatIV'),
-    'no_diklatIV'=>$this->input->post('no_diklatIV'),
-    'penyelenggara_diklatIV'=>$this->input->post('penyelenggara_diklatIV'),
-    ' tempat_diklatIV'=>$this->input->post(' tempat_diklatIV')
-        );
+        'diklatIV'=>$this->input->post('diklatIV'),
+        'jam_diklatIV'=>$this->input->post('jam_diklatIV'),
+        'tgl_diklatIV'=>$this->input->post('tgl_diklatIV'),
+        'tahun_diklatIV'=>$this->input->post('tahun_diklatIV'),
+        'angkatan_diklatIV'=>$this->input->post('angkatan_diklatIV'),
+        'no_diklatIV'=>$this->input->post('no_diklatIV'),
+        'penyelenggara_diklatIV'=>$this->input->post('penyelenggara_diklatIV'),
+        ' tempat_diklatIV'=>$this->input->post(' tempat_diklatIV')
+      );
       $cek=$this->db->update('diklat_struktural',$inputData,array('id_diklatstruktural'=>$id));
       if($cek){
         $pesan='<div class="alert alert-success alert-dismissible">
@@ -2123,7 +2103,7 @@ public function diklat_tambah()
               </div>';
     $this->session->set_flashdata('pesan',$pesan);
     if ($this->session->userdata('level') == 'admin') {
-        redirect(base_url('admin/diklat/diklatstruktural'));
+        redirect(base_url('admin/diklatstruktural'));
     }else{
         redirect(base_url('admin/diklatstruktural_read'));
     }

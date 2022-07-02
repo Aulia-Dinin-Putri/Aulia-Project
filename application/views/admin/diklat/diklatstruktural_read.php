@@ -102,37 +102,6 @@
             <button class="btn btn-primary" type="submit" name="kirim" value="Submit">Simpan</button>
           </div>
         </form>
-
-        <!-- class hide membuat form disembunyikan  -->
-        <!-- hide adalah fungsi bootstrap 3, klo bootstrap 4 pake invisible  -->
-        <div class="copy hide">
-            <div class="control-group">
-              <label>Nama Pegawai</label>
-              <input type="text" name="nama[]" class="form-control">
-              <label>NIP</label>
-            <input type="text" name="nip[]" class="form-control">
-            <label>Nama Diklat</label>
-            <input type="text" name="diklatI[]" class="form-control">
-            <label>Jam Diklat</label>
-            <input type="time" name="jam_diklatI[]" class="form-control">
-            <label>Tanggal Diklat</label>
-            <input type="date" name="tgl_diklatI[]" class="form-control">
-            <label>Tahun Diklat</label>
-            <input type="year" name="tahun_diklatI[]" class="form-control">
-            <label>Angkatan Diklat</label>
-            <input type="text" name="angkatan_diklatI[]" class="form-control">
-            <label>No Diklat</label>
-            <input type="text" name="no_diklatI[]" class="form-control">
-            <label>Penyelenggara Diklat</label>
-            <input type="text" name="penyelenggara_diklatI[]" class="form-control">
-            <label>Tempat Diklat</label>
-            <input type="text" name="tempat_diklatI[]" class="form-control">
-              <br>
-              <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
-              <hr>
-            </div>
-          </div>
-        </div>
     </div>
   </div>
 <script>
