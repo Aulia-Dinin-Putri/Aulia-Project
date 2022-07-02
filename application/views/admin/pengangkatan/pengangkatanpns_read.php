@@ -58,6 +58,7 @@
 			<p><?= $admin['bukti'] ?></p>
 			<a href="<?= base_url('template/data/'.$admin['bukti']) ?>" class="btn btn-primary" download>Download <i class="fa fa-download"></i> </a>
 			<a href="javascript:void(0)" target="_blank" class="btn btn-warning" onclick="window.open(`<?= base_url('template/data/'.$admin['bukti']) ?>`)">Preview <i class="fa fa-link"></i> </a>
+			
 		</td>
 		</tr>
 		<?php }; ?>
