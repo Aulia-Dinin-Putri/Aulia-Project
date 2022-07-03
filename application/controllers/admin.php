@@ -1267,26 +1267,27 @@ public function pegawai_read()
     $x = array(
         'judul'        =>'Edit Detail Data Pegawai' ,
         'aksi'        =>'Edit',
-        'foto' => $sql->foto,
-        'nip'=>$sql->nip,
-        'nama'=>$sql->nama,
-        'npwp'=>$sql->npwp,
-        'nik'=>$sql->nik,
-        'gelar_kesarjanaan'=>$sql->gelar_kesarjanaan,
-        'tempat'=>$sql->tempat,
-        'tgl_lahir'=>$sql->tgl_lahir,
-        'jk'=>$sql->jk,
-        'agama'=>$sql->agama,
-        'pendidikan'=>$sql->pendidikan,
-        'status_kep'=>$sql->status_kep,
-        'alamat'=>$sql->alamat,
-        'no_hp'=>$sql->no_hp,
-        'email'=>$sql->email,
-        'goldar'=>$sql->goldar,
-        'status_kawin'=>$sql->status_kawin,
-        'tgl_pensiun'=>$sql->tgl_pensiun,
-        'no_karpeg'=>$sql->no_karpeg,
-        'no_taspen'=>$sql->no_taspen
+        //'foto' => $sql->foto,
+        'foto'=>$sql['foto'],
+        'nip'=>$sql['nip'],
+        'nama'=>$sql['nama'],
+        'npwp'=>$sql['npwp'],
+        'nik'=>$sql['nik'],
+        'gelar_kesarjanaan'=>$sql['gelar_kesarjanaan'],
+        'tempat'=>$sql['tempat'],
+        'tgl_lahir'=>$sql['tgl_lahir'],
+        'jk'=>$sql['jk'],
+        'agama'=>$sql['agama'],
+        'pendidikan'=>$sql['pendidikan'],
+        'status_kep'=>$sql['status_kep'],
+        'alamat'=>$sql['alamat'],
+        'no_hp'=>$sql['no_hp'],
+        'email'=>$sql['email'],
+        'goldar'=>$sql['goldar'],
+        'status_kawin'=>$sql['status_kawin'],
+        'tgl_pensiun'=>$sql['tgl_pensiun'],
+        'no_karpeg'=>$sql['no_karpeg'],
+        'no_taspen'=>$sql['no_taspen']
     ); 
     if(isset($_POST['kirim'])){
       if(empty($_FILES['gambar']['name'])){
@@ -1753,11 +1754,11 @@ public function pegawai_read()
   {
    $id = $this->session->userdata('id_admin');
 
-    $this->db->select('pendidikan.id_pendidikan, pendidikan.nama, pendidikan.SD, pendidikan.SMP, pendidikan.SMA, pendidikan.D3, pendidikan.S1, pendidikan.S2, pendidikan.pend_akhir, admin.nama, pegawai.nip');
+    $this->db->select('pendidikan.id_pendidikan, pendidikan.nama, pendidikan.SD, pendidikan.SMP, pendidikan.SMA, pendidikan.D3, pendidikan.S1, pendidikan.S2, pendidikan.pend_akhir, admin.nama AS nama_admin');
     $this->db->from('pendidikan');
-    $this->db->join('admin', 'pendidikan.id_admin=admin.id_admin');
-    $this->db->join('pegawai', 'admin.id_admin=pegawai.id_admin');
     $this->db->where('pendidikan.id_admin', $id);
+    $this->db->join('admin', 'pendidikan.id_admin=admin.id_admin');
+    //$this->db->join('pegawai', 'admin.id_admin=pegawai.id_admin');
     $data_pendidikan = $this->db->get();
     
    $x = array('judul' =>':: Data Riwayat Pendidikan ::', 
@@ -1771,18 +1772,18 @@ public function pegawai_read()
   $x = array('judul'        => 'Tambah Data Pendidikan' ,
               'aksi'        => 'tambah',
               'SD'=>'',
-			  'SMP'=>'',
-			  'SMA'=>'',
-			  'D3'=>'',
-			  'S1'=>'',
-			  'S2'=>'',
+      			  'SMP'=>'',
+      			  'SMA'=>'',
+      			  'D3'=>'',
+      			  'S1'=>'',
+      			  'S2'=>'',
               'pend_akhir'=>'',
               'data_pegawai' => $this->db->query("SELECT * FROM admin WHERE level='user'")->result()
     ); 
     if(isset($_POST['kirim'])){
       $inputData=array(
-            'id_admin' => $this->input->post('id_admin'),
-			'nama' => $this->input->post('nama'),
+        'id_admin' => $this->input->post('id_admin'),
+			  'nama' => "0",
     		'SD'=>$this->input->post('SD'),
     		'SMP'=>$this->input->post('SMP'),
     		'SMA'=>$this->input->post('SMA'),
@@ -1809,21 +1810,21 @@ public function pegawai_read()
     
   public function pendidikan_edit($id='')
   {
-    $this->db->select('pendidikan.id_pendidikan, pendidikan.SD, pendidikan.SMP, pendidikan.SMA, pendidikan.D3, pendidikan.S1, pendidikan.S2, pendidikan.pend_akhir, admin.nama AS nama_admin');
+    $this->db->select('pendidikan.id_pendidikan, pendidikan.nama, pendidikan.SD, pendidikan.SMP, pendidikan.SMA, pendidikan.D3, pendidikan.S1, pendidikan.S2, pendidikan.pend_akhir, admin.nama AS nama_admin');
     $this->db->from('pendidikan');
     $this->db->where('pendidikan.id_pendidikan', $id);
     $this->db->join('admin', 'pendidikan.id_admin=admin.id_admin');
     $data = $this->db->get();
     $sql = $data->row_array();
-    /*if ($sql['nama'] == "") {
+    if ($sql['nama'] == "") {
       $nama = $sql['nama_admin'];
     }else{
       $nama = $sql['nama'];
-    }*/
+    }
 
   $x = array('judul'        =>'Edit Data Riwayat Pendidikan',
               'aksi'        =>'edit',
-    		//'nama'=> $nama,
+    		'nama'=> $nama,
     		'SD'=>$sql['SD'],
     		'SMP'=>$sql['SMP'],
     		'SMA'=>$sql['SMA'],
@@ -1833,14 +1834,14 @@ public function pegawai_read()
         'pend_akhir'=>$sql['pend_akhir']); 
     if(isset($_POST['kirim'])){
       $inputData=array(
-		//'nama'=>$this->input->post('nama'),
+		'nama'=>$this->input->post('nama'),
 		'SD'=>$this->input->post('SD'),
 		'SMP'=>$this->input->post('SMP'),
 		'SMA'=>$this->input->post('SMA'),
 		'D3'=>$this->input->post('D3'),
-        'S1'=>$this->input->post('S1'),
+    'S1'=>$this->input->post('S1'),
 		'S2'=>$this->input->post('S2'),
-        'pend_akhir'=>$this->input->post('pend_akhir'));
+    'pend_akhir'=>$this->input->post('pend_akhir'));
       
       $cek=$this->db->update('pendidikan',$inputData,array('id_pendidikan'=>$id));
       if($cek){
@@ -1886,8 +1887,13 @@ public function pegawai_read()
 // view diklat struktural
 public function diklatstruktural()
   {
+    $this->db->select('diklat_struktural.id_diklatstruktural, diklat_struktural.nama, diklat_struktural.nama_diklat, diklat_struktural.jam_diklat, diklat_struktural.tgl_diklat, diklat_struktural.tahun_diklat, diklat_struktural.angkatan_diklat, diklat_struktural.no_diklat, diklat_struktural.penyelenggara_diklat, diklat_struktural.tempat_diklat, admin.nama AS nama_admin');
+    $this->db->from('diklat_struktural');
+    $this->db->join('admin', 'diklat_struktural.id_admin=admin.id_admin');
+    $data_diklat = $this->db->get();
+
    $x = array('judul' =>'Data Riwayat Diklat Struktural', 
-              'data'=>$this->db->get('diklat_struktural')->result_array()); 
+              'data'=>$data_diklat->result_array()); 
    tpl('admin/diklat/diklatstruktural',$x);
   }
 
@@ -1895,15 +1901,14 @@ public function diklatstruktural()
 public function diklatstruktural_read()
   {
     $id = $this->session->userdata('id_admin');
-    $this->db->select('*');
+    $this->db->select('diklat_struktural.id_diklatstruktural, diklat_struktural.nama, diklat_struktural.nama_diklat, diklat_struktural.jam_diklat, diklat_struktural.tgl_diklat, diklat_struktural.tahun_diklat, diklat_struktural.angkatan_diklat, diklat_struktural.no_diklat, diklat_struktural.penyelenggara_diklat, diklat_struktural.tempat_diklat, admin.nama AS nama_admin');
     $this->db->from('diklat_struktural');
-    $this->db->join('admin', 'diklat_struktural.id_admin=admin.id_admin');
-    $this->db->join('pegawai', 'admin.id_admin=pegawai.id_admin');
     $this->db->where('diklat_struktural.id_admin', $id);
-    $data = $this->db->get();
+    $this->db->join('admin', 'diklat_struktural.id_admin=admin.id_admin');
+    $data_diklat = $this->db->get();
     
     $x = array('judul' =>'Data Riwayat Diklat Struktural', 
-              'data'=>$data->result_array()); 
+              'data'=>$data_diklat->result_array()); 
     tpl('admin/diklat/diklatstruktural_read',$x);
   }
 
@@ -1912,7 +1917,6 @@ public function diklat_tambah()
   $x = array(
         'judul'        => 'Tambah Data Riwayat Diklat Struktural' ,
         'aksi'        => 'tambah',
-        'id_admin' => '',
     	'nama_diklat'=>'',
     	'jam_diklat'=>'',
     	'tgl_diklat'=> '',
@@ -1921,10 +1925,12 @@ public function diklat_tambah()
     	'no_diklat'=> '',
     	'penyelenggara_diklat'=> '',
     	'tempat_diklat'=> '',
+      'data_pegawai' => $this->db->query("SELECT * FROM admin WHERE level='user'")->result()
     ); 
     if(isset($_POST['kirim'])){
         $inputData=array(
-            'id_admin' => $this->session->userdata('id_admin'),
+        'id_admin'=>$this->input->post('id_admin'),
+        'nama' => "0",
     		'nama_diklat'=>$this->input->post('nama_diklat'),
     		'jam_diklat'=>$this->input->post('jam_diklat'),
     		'tgl_diklat'=>$this->input->post('tgl_diklat'),
@@ -1932,7 +1938,7 @@ public function diklat_tambah()
     		'angkatan_diklat'=>$this->input->post('angkatan_diklat'),
     		'no_diklat'=>$this->input->post('no_diklat'),
     		'penyelenggara_diklat'=>$this->input->post('penyelenggara_diklat'),
-    		'tempat_diklat'=>$this->input->post('tempat_diklat'),
+    		'tempat_diklat'=>$this->input->post('tempat_diklat')
 		);
       $cek=$this->db->insert('diklat_struktural',$inputData);
       if($cek){
@@ -1942,11 +1948,7 @@ public function diklat_tambah()
                Data Berhasil Di Ditambahkan.
               </div>';
         $this->session->set_flashdata('pesan',$pesan);
-        if ($this->session->userdata('level') == 'admin') {
-            redirect(base_url('admin/diklat/diklatstruktural'));
-        }else{
-            redirect(base_url('admin/diklatstruktural_read'));
-        }
+        redirect(base_url('admin/diklatstruktural'));
       }else{
        echo "ERROR input Data";
       }
@@ -1957,24 +1959,59 @@ public function diklat_tambah()
     	
   public function diklat_edit($id='')
   {
-    $sql = $this->db->get_where('diklat_struktural',array('id_diklatstruktural'=>$id))->row_array(); 
-//   echo $sql['nama_diklat'];
+    $this->db->select('diklat_struktural.id_diklatstruktural, diklat_struktural.nama, diklat_struktural.nama_diklat, diklat_struktural.jam_diklat, diklat_struktural.tgl_diklat, diklat_struktural.tahun_diklat, diklat_struktural.angkatan_diklat, diklat_struktural.no_diklat, diklat_struktural.penyelenggara_diklat, diklat_struktural.tempat_diklat, admin.nama AS nama_admin');
+    $this->db->from('diklat_struktural');
+    $this->db->where('diklat_struktural.id_admin', $id);
+    $this->db->join('admin', 'diklat_struktural.id_admin=admin.id_admin');
+    $data_diklat = $this->db->get();
+    $sql = $data_diklat->row_array();
+    if ($sql['nama'] == "") {
+      $nama = $sql['nama_admin'];
+    }else{
+      $nama = $sql['nama'];
+    }
+
     $x = array(
         'judul'        =>'Edit Data Riwayat Diklat Struktural' ,
         'aksi'          =>'edit',
-        'id_diklatstruktural' => $id,
-    	'nama_diklat'=> $sql['nama_diklat'],
+    	 'nama' => $nama,
+      'nama_diklat'=> $sql['nama_diklat'],
     	'jam_diklat'=> $sql['jam_diklat'],
     	'tgl_diklat'=> $sql['tgl_diklat'],
     	'tahun_diklat'=> $sql['tahun_diklat'],
     	'angkatan_diklat'=> $sql['angkatan_diklat'],
     	'no_diklat'=> $sql['no_diklat'],
     	'penyelenggara_diklat'=> $sql['penyelenggara_diklat'],
-    	'tempat_diklat'=> $sql['tempat_diklat'],
+    	'tempat_diklat'=> $sql['tempat_diklat']
      );
 
     if(isset($_POST['kirim'])){
-        
+        $inputData=array(
+        'nama'=>$this->input->post('nama'), 'nama_diklat'=>$this->input->post('nama_diklat'),
+        'jam_diklat'=>$this->input->post('jam_diklat'),
+        'tgl_diklat'=>$this->input->post('tgl_diklat'),
+        'tahun_diklat'=>$this->input->post('tahun_diklat'),
+        'angkatan_diklat'=>$this->input->post('angkatan_diklat'),
+        'no_diklat'=>$this->input->post('no_diklat'),
+        'penyelenggara_diklat'=>$this->input->post('penyelenggara_diklat'),
+        'tempat_diklat'=>$this->input->post('tempat_diklat')
+    );
+      $cek=$this->db->update('diklat_struktural',$inputData,array('id_diklatstruktural'=>$id));
+      if($cek){
+        $pesan='<div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-check"></i> Success!</h4>
+               Data Berhasil Di Diedit.
+              </div>';
+    $this->session->set_flashdata('pesan',$pesan);
+    if ($this->session->userdata('level') == 'admin') {
+          redirect(base_url('admin/diklat/diklatstruktural_read'));
+        }else{
+          redirect(base_url('admin/diklatstruktural_read'));
+        }
+      }else{
+       echo "ERROR input Data";
+      }
     }else{
         tpl('admin/diklat/diklatstrukturalread2_form',$x);
     }
@@ -2007,107 +2044,6 @@ public function diklat_tambah()
         }
     }else{
       echo "ERROR input Data";
-    }
-  }
-
-  public function diklat_detail($id='')
-  {
-  $sql=$this->db->get_where('diklat_struktural',array('id_diklatstruktural'=>$id))->row_array(); 
-  $x = array('judul'        =>'Detail Riwayat Data Diklat Struktural' ,
-              'aksi'        =>'detail',
-    'nip'=>$sql['nip'],
-    'nama'=>$sql['nama'],
-    'diklatI'=>$sql['diklatI'],
-    'jam_diklatI'=>$sql['jam_diklatI'],
-    'tgl_diklatI'=>$sql['tgl_diklatI'],
-    'tahun_diklatI'=>$sql['tahun_diklatI'],
-    'angkatan_diklatI'=>$sql['angkatan_diklatI'],
-    'no_diklatI'=>$sql['no_diklatI'],
-    'penyelenggara_diklatI'=>$sql['penyelenggara_diklatI'],
-    'tempat_diklatI'=>$sql['tempat_diklatI'],
-
-    'diklatII'=>$sql['diklatII'],
-    'jam_diklatII'=>$sql['jam_diklatII'],
-    'tgl_diklatII'=>$sql['tgl_diklatII'],
-    'tahun_diklatII'=>$sql['tahun_diklatII'],
-    'angkatan_diklatII'=>$sql['angkatan_diklatII'],
-    'no_diklatII'=>$sql['no_diklatII'],
-    'penyelenggara_diklatII'=>$sql['penyelenggara_diklatII'],
-    'tempat_diklatII'=>$sql['tempat_diklatII'],
-
-    'diklatIII'=>$sql['diklatIII'],
-    'jam_diklatIII'=>$sql['jam_diklatIII'],
-    'tgl_diklatIII'=>$sql['tgl_diklatIII'],
-    'tahun_diklatIII'=>$sql['tahun_diklatIII'],
-    'angkatan_diklatIII'=>$sql['angkatan_diklatIII'],
-    'no_diklatIII'=>$sql['no_diklatIII'],
-    'penyelenggara_diklatIII'=>$sql['penyelenggara_diklatIII'],
-    'tempat_diklatIII'=>$sql['tempat_diklatIII'],
-
-    'diklatIV'=>$sql['diklatIV'],
-    'jam_diklatIV'=>$sql['jam_diklatIV'],
-    'tgl_diklatIV'=>$sql['tgl_diklatIV'],
-    'tahun_diklatIV'=>$sql['tahun_diklatIV'],
-    'angkatan_diklatIV'=>$sql['angkatan_diklatIV'],
-    'no_diklatIV'=>$sql['no_diklatIV'],
-    'penyelenggara_diklatIV'=>$sql['penyelenggara_diklatIV'],
-    'tempat_diklatIV'=>$sql['tempat_diklatIV']
-  ); 
-    if(isset($_POST['kirim'])){
-      $inputData=array(
-    'nip'=>$this->input->post('nip'),
-    'nama'=>$this->input->post('nama'),
-
-    'diklatI'=>$this->input->post('diklatI'),
-    'jam_diklatI'=>$this->input->post('jam_diklatI'),
-    'tgl_diklatI'=>$this->input->post('tgl_diklatI'),
-    'tahun_diklatI'=>$this->input->post('tahun_diklatI'),
-    'angkatan_diklatI'=>$this->input->post('angkatan_diklatI'),
-    'no_diklatI'=>$this->input->post('no_diklatI'),
-    'penyelenggara_diklatI'=>$this->input->post('penyelenggara_diklatI'),
-    ' tempat_diklatI'=>$this->input->post(' tempat_diklatI'),
-
-    'diklatII'=>$this->input->post('diklatII'),
-    'jam_diklatII'=>$this->input->post('jam_diklatII'),
-    'tgl_diklatII'=>$this->input->post('tgl_diklatII'),
-    'tahun_diklatII'=>$this->input->post('tahun_diklatII'),
-    'angkatan_diklatII'=>$this->input->post('angkatan_diklatII'),
-    'no_diklatII'=>$this->input->post('no_diklatII'),
-    'penyelenggara_diklatII'=>$this->input->post('penyelenggara_diklatII'),
-    ' tempat_diklatII'=>$this->input->post(' tempat_diklatII'),
-
-    'diklatIII'=>$this->input->post('diklatIII'),
-    'jam_diklatIII'=>$this->input->post('jam_diklatIII'),
-    'tgl_diklatIII'=>$this->input->post('tgl_diklatIII'),
-    'tahun_diklatIII'=>$this->input->post('tahun_diklatIII'),
-    'angkatan_diklatIII'=>$this->input->post('angkatan_diklatIII'),
-    'no_diklatIII'=>$this->input->post('no_diklatIII'),
-    'penyelenggara_diklatIII'=>$this->input->post('penyelenggara_diklatIII'),
-    ' tempat_diklatIII'=>$this->input->post(' tempat_diklatIII'),
-
-    'diklatIV'=>$this->input->post('diklatIV'),
-    'jam_diklatIV'=>$this->input->post('jam_diklatIV'),
-    'tgl_diklatIV'=>$this->input->post('tgl_diklatIV'),
-    'tahun_diklatIV'=>$this->input->post('tahun_diklatIV'),
-    'angkatan_diklatIV'=>$this->input->post('angkatan_diklatIV'),
-    'no_diklatIV'=>$this->input->post('no_diklatIV'),
-    'penyelenggara_diklatIV'=>$this->input->post('penyelenggara_diklatIV'),
-    ' tempat_diklatIV'=>$this->input->post(' tempat_diklatIV')
-        );
-      $cek=$this->db->update('diklat_struktural',$inputData,array('id_diklatstruktural'=>$id));
-      if($cek){
-        $pesan='<div class="alert alert-success alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-check"></i> Success!</h4>
-               Data Berhasil Di Diedit.
-              </div>';
-    $this->session->set_flashdata('pesan',$pesan);
-    redirect(base_url('admin/diklat/diklatstruktural_read'));
-      }else{
-       echo "ERROR input Data";
-      }
-    }else{
-     tpl('admin/diklat/diklatstruktural_form',$x);
     }
   }
 
