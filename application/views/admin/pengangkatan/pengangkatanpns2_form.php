@@ -1,13 +1,12 @@
 <table class="table table-responsive">
 	<form action="" method="POST" enctype="multipart/form-data">
-	<tr><th>Tanggal</th><td><input type="date" name="tgl_sk" class="form-control" value="<?= $tgl_sk ?>" required=""></td><th class="text-danger" >***</th></tr>
-	<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" readonly ></td><th class="text-danger" >***</th></tr>
-	<tr><th>Nomor Surat Keputusan</th><td><input type="text" name="no_sk" class="form-control" value="<?= $no_sk ?>" required=""></td><th class="text-danger" >***</th></tr>
+	<tr><th>Nomor SK</th><td><input type="text" name="no_sk" class="form-control" value="<?= $no_sk ?>" required=""></td><th class="text-danger" >***</th></tr>
+	<tr><th>Tanggal SK</th><td><input type="date" name="tgl_sk" class="form-control" value="<?= $tgl_sk ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Pejabat yang menetapkan</th><td><select class="form-control" name="pejabat_ygmenetapkan" required="">
 	                          <option value="Bupati Jombang">Bupati Jombang</option>
 	                          <option value="-">-</option>
 							  </select></td><th class="text-danger">***</th></tr>
-	<tr><th>Gapok Surat Keputusan</th><td><input type="text" name="gapok_sk" class="form-control" value="<?= $gapok_sk ?>" required=""></td><th class="text-danger" >***</th></tr>
+	<tr><th>Gapok SK</th><td><input type="text" name="gapok_sk" class="form-control" value="<?= $gapok_sk ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Pangkat</th><td><select class="form-control" name="pangkat_sk" required="">
 	                          <option value="Juru Muda">Juru Muda</option>
 	                          <option value="Juru Muda Tingkat I">Juru Muda Tingkat I</option>
@@ -65,7 +64,7 @@
 							  
 	<tr><th>Suket Kesehatan</th><td><input type="text" name="suket_kesehatan" class="form-control" value="<?= $suket_kesehatan ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>STTPL</th><td><input type="text" name="sttpl" class="form-control" value="<?= $sttpl ?>" required=""></td><th class="text-danger" >***</th></tr>
-	<tr><th>Sumpah/Janji/PNS</th><td><input type="teks" name="sumpah_janji_pns" class="form-control" value="<?= $sumpah_janji_pns ?>" required=""></td><th class="text-danger" >***</th></tr>
+	<tr><th>Sumpah/Janji PNS</th><td><input type="teks" name="sumpah_janji_pns" class="form-control" value="<?= $sumpah_janji_pns ?>" required=""></td><th class="text-danger" >***</th></tr>
     <tr><th>Bukti Pengangkatan</th><td>
 	<?php 
       if($aksi == "Edit"){
@@ -81,5 +80,3 @@
 	<tr><td></td><td><input type="submit" name="kirim" value="Submit" class="btn btn-primary"> &nbsp;&nbsp; <a href="<?= base_url('admin/pengangkatanpns_read') ?>" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a></td></tr>
 	</form>	 
 </table>
- 
- 

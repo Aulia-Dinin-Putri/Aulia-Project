@@ -1,7 +1,7 @@
 
 <table class="table table-reposive">
 	<form action="" method="POST">
-	<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" disabled required=""></td><th class="text-danger">***</th></tr>
+	<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" disabled required=""></td></tr>
 	<tr><th>Nomor SK Penghargaan</th><td><input type="text" name="no_skpenghargaan" class="form-control" value="<?= $no_skpenghargaan ?>"></td></tr>
 	<tr><th>Tanggal SK Penghargaan</th><td><input type="date" name="tgl_skpenghargaan" class="form-control" value="<?= $tgl_skpenghargaan ?>"></td></tr>
 	<tr><th>Asal SK Penghargaan</th><td><input type="text" name="asal_skpenghargaan" class="form-control" value="<?= $asal_skpenghargaan ?>"></td></tr>

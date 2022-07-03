@@ -6,16 +6,6 @@
       <?php foreach($data as $admin){ ?>
         <table id="example1" class="table table-striped table-bordered text-left">
           <tr>
-            <td width="200">Nama Pegawai</td>
-            <td width="10">:</td> 
-            <td><?= $admin['nama'] ?></td>
-          </tr>
-          <tr>
-            <td width="200">NIP</td>
-            <td width="10">:</td> 
-            <td><?= $admin['nip'] ?></td>
-          </tr>
-          <tr>
             <td width="200">Nama Diklat</td>
             <td width="10">:</td> 
             <td><?= $admin['nama_diklat'] ?></td>

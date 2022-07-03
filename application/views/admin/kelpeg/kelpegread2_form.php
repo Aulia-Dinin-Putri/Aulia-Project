@@ -1,7 +1,7 @@
 <table class="table table-striped">
 <form action="" method="POST" enctype="multipart/form-data"> 
  
-<tr><th>Nama Pegawai</th><td><input type="text" name="nama" value="<?= $nama ?>" class="form-control" readonly></td><th class="text-danger">***</th></tr>
+<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" disabled required=""></td></tr>
 <tr><th>Nama Ayah</th><td><input type="text" name="nama_ayah" value="<?= $nama_ayah ?>" class="form-control" required=""></td><th class="text-danger">***</th></tr>
 <tr><th>Tempat Lahir Ayah</th><td><input type="text" name="tempat_ayah" value="<?= $tempat_ayah ?>" class="form-control" required=""></td><th class="text-danger">***</th></tr>
 <tr><th>Tanggal Lahir Ayah</th><td><input type="date" name="tgllahir_ayah" value="<?= $tgllahir_ayah ?>" class="form-control" required=""></td><th class="text-danger">***</th></tr>

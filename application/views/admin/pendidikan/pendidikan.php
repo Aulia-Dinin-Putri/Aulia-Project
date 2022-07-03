@@ -26,7 +26,16 @@
                 <?php $no=1; foreach($data as $admin): ?>
                 <tr>
 					<td><?= $no ?></td>
-					<td><?= $admin['nama'] ?></td>
+					<!-- <td><?= $admin['nama'] ?></td> -->
+					<td>
+							<?php
+								if ($admin['nama'] == "0") {
+									echo $admin['nama_admin'];
+								}else{
+									echo $admin['nama'];
+								}
+							?>
+					</td>
 					<td><?= $admin['SD'] ?></td>
 					<td><?= $admin['SMP'] ?></td>
 					<td><?= $admin['SMA'] ?></td>
@@ -35,6 +44,7 @@
 					<td><?= $admin['S2'] ?></td> 
 					<td><?= $admin['pend_akhir'] ?></td>
 					<td>
+						<a href="<?= base_url('admin/pendidikan_edit/'.$admin['id_pendidikan']) ?>" class="btn btn-info"><i class="fa fa-edit"></i>Edit</a>
 						<a href="<?= base_url('admin/pendidikan_hapus/'.$admin['id_pendidikan']) ?>" class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</a>
 					</td> 
                 </tr>

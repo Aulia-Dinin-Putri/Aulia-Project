@@ -1,3 +1,4 @@
+<table class="table table-striped">
 <form action="" method="POST" enctype="multipart/form-data"> 
 	<select class="form-control select2" name="id_admin" style="width: 100%;" required="">
 		<option selected="selected" disabled>Cari Nama</option>
@@ -16,7 +17,7 @@
 	<label>Angkatan Diklat</label>
 	<input type="text" name="angkatan_diklat" class="form-control" required>
 	<label>No Diklat</label>
-	<input type="number" name="no_diklat" class="form-control" required>
+	<input type="text" name="no_diklat" class="form-control" required>
 	<label>Penyelenggara Diklat</label>
 	<select name="penyelenggara_diklat" class="form-control" required>
 		<option value="" selected disabled>Pilih Penyelenggara Diklat</option>
@@ -37,6 +38,7 @@
 ?>
 <input type="submit" name="kirim" value="Submit" class="btn btn-primary"> <a href="<?= base_url('admin/diklatstruktural') ?>" class="btn btn-success" class="small-box-footer">Back <i class="fa fa-arrow-circle-right"></i></a>
 </form>
+</table>
 <?php 
 if($aksi == "edit"):
 ?>	

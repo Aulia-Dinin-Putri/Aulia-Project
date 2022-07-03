@@ -1,7 +1,6 @@
 <table class="table table-striped" style="border-collapse: collapse; width: 100%; margin: 0 auto;">
 <form action="" method="POST" enctype="multipart/form-data"> 
  
-
 <tr><th>Nip</th><td><input type="text" name="nip" value="<?= $nip ?>" class="form-control" required=""></td></tr>
 <tr><th>Nama</th><td><input type="text" name="nama" value="<?= $nama ?>" class="form-control" disabled></td><th class="text-danger">***</th></tr>
 <tr><th>NPWP</th><td><input type="text" name="npwp" value="<?= $npwp ?>" class="form-control" required=""></td><th class="text-danger">***</th></tr>

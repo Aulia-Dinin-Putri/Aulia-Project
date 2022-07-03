@@ -12,13 +12,8 @@ $id  = $this->session->userdata('id_admin');
 			<form action="" method="POST" enctype="multipart/form-data" style="border-collapse:collapse; width:100%; margin:0 auto; text-align:center;">
 				<table id="example1" class="table table-striped table-bordered text-left">
 					<tr>
-					<td width="100">NAMA</td>
+					<td width="100">NAMA JABATAN</td>
 					<td width="10">:</td>
-					<td><?= $admin['nama'] ?></td>
-					</tr>
-					<tr>
-					<td>NAMA JABATAN</td>
-					<td>:</td>
 					<td><?= $admin['nama_jabatan'] ?></td>
 					</tr>
 					<tr>

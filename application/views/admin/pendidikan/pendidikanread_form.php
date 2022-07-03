@@ -1,8 +1,5 @@
 <table class="table table-reposive">
 	<form action="" method="POST">
-	<!-- <tr><th>Nip</th><td><input type="text" name="nip" class="form-control" value="<?= $nip ?>" required=""></td><th class="text-danger" >***</th></tr>
-	<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" required=""></td><th class="text-danger" >***</th></tr> -->
-	
 	<tr><th>SD/MI</th><td><input type="text" name="SD" class="form-control" value="<?= $SD ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>SMP/MTS</th><td><input type="text" name="SMP" class="form-control" value="<?= $SMP ?>" required=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>SMA/MA/SMK</th><td><input type="text" name="SMA" class="form-control" value="<?= $SMA ?>" required=""></td><th class="text-danger" >***</th></tr>

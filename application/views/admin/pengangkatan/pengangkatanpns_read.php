@@ -10,14 +10,14 @@
 		<td></td>
 		</tr>
 		<tr>
-		<td width="300">Nama Pegawai</td>
+		<td width="300">Nomor SK</td>
 		<td width="10">:</td>
-		<td><?= $admin['nama'] ?></td>
+		<td><?= $admin['no_sk'] ?></td>
 		</tr>
 		<tr>
-		<td>Nomor SK</td>
+		<td>Tanggal SK</td>
 		<td>:</td>
-		<td><?= $admin['no_sk'] ?></td>
+		<td><?= $admin['tgl_sk'] ?></td>
 		</tr>
 		<tr>
 		<td>Pejabat yang menetapkan</td>
@@ -25,7 +25,7 @@
 		<td><?= $admin['pejabat_ygmenetapkan'] ?></td>
 		</tr>
 		<tr>
-		<td>Gapok</td>
+		<td>Gapok SK</td>
 		<td>:</td>
 		<td><?= $admin['gapok_sk'] ?></td>
 		</tr>
@@ -39,17 +39,35 @@
 		<td>:</td>
 		<td><?= $admin['gol_ruang'] ?></td>
 		</tr>
+		<tr>
 		<td>T.M.T PNS</td>
 		<td>:</td>
 		<td><?= $admin['tmt_pns'] ?></td>
 		</tr>
+		<tr>
+		<td>Tahun</td>
+		<td>:</td>
+		<td><?= $admin['tahun'] ?></td>
+		</tr>
+		<tr>
+		<td>Bulan</td>
+		<td>:</td>
+		<td><?= $admin['bulan'] ?></td>
+		</tr>
+		<tr>
 		<td>Suket Kesehatan</td>
 		<td>:</td>
 		<td><?= $admin['suket_kesehatan'] ?></td>
 		</tr>
+		<tr>
 		<td>STTPL</td>
 		<td>:</td>
 		<td><?= $admin['sttpl'] ?></td>
+		</tr>
+		<tr>
+		<td>Sumpah/Janji PNS</td>
+		<td>:</td>
+		<td><?= $admin['sumpah_janji_pns'] ?></td>
 		</tr>
 		<tr>
 		<td>Bukti Pengangkatan</td>

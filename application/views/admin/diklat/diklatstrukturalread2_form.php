@@ -1,6 +1,5 @@
 <table class="table table-responsive">
 <form action="<?= base_url() ?>admin/diklat_edit_submit" method="post"> 
-    <input type="hidden" value="<?= $id_diklatstruktural ?>" name="id">
 	<tr><th>Nama Diklat</th><td><input type="text" name="nama_diklat" class="form-control" value="<?= $nama_diklat ?>" required></td><th class="text-danger" >***</th></tr>
 	<tr><th>Jam Diklat</th><td><input type="time" name="jam_diklat" class="form-control" value="<?= $jam_diklat ?>" required></td></tr>
 	<tr><th>Tanggal Diklat</th><td><input type="date" name="tgl_diklat" class="form-control" value="<?= $tgl_diklat ?>" required></td></tr>

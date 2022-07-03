@@ -1,3 +1,8 @@
+<?php
+$id  = $this->session->userdata('id_admin');
+ $tr= $this->db->get_where('admin',array('id_admin'=>$id))->row_array();
+?>
+
 <a href="pendidikan_read"> <button onClick="window.print();" class="btn btn-warning"> <i class="fa fa-print"></i> Print Data</button></a>
     <table id="example1" class="table table-striped table-bordered text-left">
 		<?php foreach($data as $admin){ ?>
@@ -6,18 +11,8 @@
 			<button type="submit" class="btn btn-info"><i class="fa fa-edit"></i>Edit</button>
 		</tr>
 		<tr>
-		<td width="100">NIP</td>
+		<td width="100">SD</td>
 		<td width="10">:</td>
-		<td><?= $admin['nip'] ?></td>
-		</tr>
-		<tr>
-		<td>NAMA PEGAWAI</td>
-		<td>:</td>
-		<td><?= $admin['nama'] ?></td>
-		</tr>
-		<tr>
-		<td>SD/MI</td>
-		<td>:</td>
 		<td><?= $admin['SD'] ?></td>
 		</tr>
 		<tr>
@@ -51,5 +46,5 @@
 		<td><?= $admin['pend_akhir'] ?></td>
 		</tr>
 		<?php }; ?>
-    </table>
-</form> 
+    </form>
+</table> 

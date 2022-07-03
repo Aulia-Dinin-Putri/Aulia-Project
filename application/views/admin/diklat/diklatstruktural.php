@@ -23,14 +23,22 @@
 		<th>No Diklat</th>
 		<th>Penyelenggara Diklat</th>
 		<th>Tempat Diklat</th>
-        <th width="20%" class= "text-center">Aksi</th>
+        <th class= "text-center">Aksi</th>
 		</tr>
 		</thead>
     <tbody>
     <?php $no=1; foreach($data as $admin): ?>
 		<tr>
             <td><?= $no ?></td>
-			<td><?= $admin['nama'] ?></td>
+			<td>
+							<?php
+								if ($admin['nama'] == "0") {
+									echo $admin['nama_admin'];
+								}else{
+									echo $admin['nama'];
+								}
+							?>
+			</td>
             <td><?= $admin['nama_diklat'] ?></td>
             <td><?= $admin['jam_diklat'] ?></td>
 			<td><?= $admin['tgl_diklat'] ?></td>
@@ -40,7 +48,6 @@
             <td><?= $admin['penyelenggara_diklat'] ?></td>
             <td><?= $admin['tempat_diklat'] ?></td>
             <td>
-                <a href="<?= base_url('admin/diklat_detail/'.$admin['id_diklatstruktural']) ?>" class="btn btn-success"><i class="fa fa-search-plus"></i> Detail Diklat</a>
                 <a href="<?= base_url('admin/diklat_hapus/'.$admin['id_diklatstruktural']) ?>" class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</a>
             </td>
         </tr>
