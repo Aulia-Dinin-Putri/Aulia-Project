@@ -1,6 +1,6 @@
 <table class="table table-reposive">
 	<form action="" method="POST">
-	<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" required=""></td><th class="text-danger" >***</th></tr>
+	<tr><th>Nama Pegawai</th><td><input type="text" name="nama" class="form-control" value="<?= $nama ?>" readonly=""></td><th class="text-danger" >***</th></tr>
 	<tr><th>Nama Jabatan</th><td><input type="text" name="nama_jabatan" class="form-control" value="<?= $nama_jabatan ?>" required=""></td><th class="text-danger">***</th></tr>
 	<tr><th>Eselon</th><td><select class="form-control" name="eselon" required="">
 							  <option value="II/A">II/A</option>
